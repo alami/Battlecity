@@ -8,14 +8,12 @@
 <script src="engine/Loader.js"></script>
 <script>
     const { Loader } = GameEngine
-
     const loader = new Loader()
-
     loader.addImage('Amirsay','static/amirsay.jpg')
-
-    loader.load (()=>{
-        console.log('Images loaded')})
-
+    loader.addJson('persons','static/persons.json')
+    //console.log(loader)
+    loader.load (()=>{ console.log('Images loaded')})
+    console.log(loader)
     /*Loader.loadImage('static/amirsay.jpg')
         .then(image => {
             //console.log(image)

@@ -96,13 +96,13 @@ Person {name: "alami", age: 27} --не объект а сам класс
    то равно тому же если нет, то подключаются и другие
 0-46 создадим ф-ции задействованный для экз-ра Loader (не статические)
 0-47 constructor () {
-         this.resources = { ---у нас будут еще ресурсы
-             images: [],   --из имэжис
-             jsons: []      --жсон файлов? звуки позже
-         }
-         this.loadOrder = { ---кот надо загрузить
+         this.loadOrder = { ---чередь данных , кот надо загрузить
              images: [],
              jsons: []
+         }
+         this.resources = { ---у нас будут еще ресурсы где хранить данные
+             images: [],   --из images
+             jsons: []      --json файлов? звуки позже
          }
      }
      addImage (name, src) {
@@ -161,7 +161,47 @@ Loader {loadOrder: {…}, resources: {…}}
 
 0-59 callback - handler - ф-ия передется как аргумент др-ой ф-ции
 
+1-01 json - файл
+1-03 сделаем такой же 
+        addJson (name, src) {
+          this.loadOrder.jsons.push({name,src})
+          } 
+и загрузку в loader() ---логика вся та же самая
+  for (const addJson of this.loadOrder.images) { 
+    const { name, address } = imageData
+
+    const promice = Loader
+        .loadJson(address)  //loadImage -- не подойдет --скачиваем с сервака
+        .then(image => {
+            this.resources.jsons [name] = image --регистрируем в ресурсах
+
+            if (this.loadOrder.jsons.includes(imageData)) { --удаляем из очереди загрузки
+                const index = this.loadOrder.jsons.indexOf(imageData)
+                this.loadOrder.jsons.splice(index,1)
+            }
+        })
+    promices.push(promice)
+  }
+1-04 fetch - аналог AJAX запроса спомошью xHttP request, 
+просто способ загрузить данные с сервера на клиента
+1-05 то же возвращает промис  
+1-06
+   static loadJson (address) {
+     return new Promise((resolve, reject) => {
+       fetch(address)
+         .then(result => result.json())   --один методов для данных и текст и json их надо правильно интерпретировать
+         .then(result => resolve(result)) --2 раза, стиль прогр-ния,
+---т.к. всегда возвращает Промис, а значит и на его рез-т я подписываюсь спомощью .then
+         .catch (err => reject(err))  -- не оборачиваем в try, т.к.есть пособность поймать ошибку у промиса непосредственно
+     })
+    }
+   }
+1-07 ошивка в JSON? он очень привередлив, никааих лишних пробелов, запятых, только "",ит.п  
+1-10 нашли в  for (const addJson of this.loadOrder.images) { --.jsons
+1-11 далее будум получать доступ ко всем загруженным данным: описывать карты, спрайты на картинках
+и это все будут храниться в нашем лодере
+
+
 
 
 1-25
-paulo2009

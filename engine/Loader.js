@@ -12,7 +12,10 @@
             }
         }
         addImage (name, src) {
-            this.loadOrder.images.push(name,src)
+            this.loadOrder.images.push({name,src})
+        }
+        addJson (name, address) {
+            this.loadOrder.jsons.push({name,address})
         }
         load (callback) {
             const promices = []
@@ -31,6 +34,21 @@
                     })
                 promices.push(promice)
             }
+            for (const jsonData of this.loadOrder.jsons) {
+                const { name, address } = jsonData
+
+                const promice = Loader
+                    .loadJson(address)
+                    .then(image => {
+                        this.resources.jsons [name] = image
+
+                        if (this.loadOrder.jsons.includes(jsonData)) {
+                            const index = this.loadOrder.jsons.indexOf(jsonData)
+                            this.loadOrder.jsons.splice(index,1)
+                        }
+                    })
+                promices.push(promice)
+            }
             Promise.all(promices).then(callback)
         }
         static loadImage (src) {
@@ -43,6 +61,14 @@
                 catch (err) {
                     reject(err)
                 }
+            })
+        }
+        static loadJson (address) {
+            return new Promise((resolve, reject) => {
+                fetch(address)
+                    .then(result => result.json())
+                    .then(result => resolve(result))
+                    .catch (err => reject(err))
             })
         }
     }
