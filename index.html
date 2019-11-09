@@ -7,16 +7,18 @@
 <body>
 <script src="engine/Loader.js"></script>
 <script src="engine/Renderer.js"></script>
+<script src="engine/Sprite.js"></script>
+<script src="engine/Container.js"></script>
 <script>
-    const { Loader, Renderer } = GameEngine
+    const { Loader, Renderer, Sprite, Container } = GameEngine
     const loader = new Loader
     const renderer = new Renderer ({
         width: 500,
         height: 500,
         background: 'grey',
-        update(timestamp) {
+        /*update(timestamp) {
             renderer.draw((canvas, content) => {
-                content.fillStyle = 'black'
+                content.fillStyle = 'red'
                 content.beginPath()
                 content.arc(
                     canvas.width / 2 + 100 * Math.cos(timestamp/100),
@@ -26,12 +28,15 @@
                     Math.PI*2)
                 content.fill()
             })
-        }
+        }*/
     })
     document.body.append(renderer.canvas)
     loader.addImage('Amirsay','static/amirsay.jpg')
     loader.addJson('persons','static/persons.json')
-    loader.load
+    loader.load (() => {
+        const sprite = new Sprite (loader.getImage('Amirsay'))  //--изо кот загрущили с клиента
+        renderer.stage.add(sprite)
+    })
 
 
 </script>
