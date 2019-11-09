@@ -21,28 +21,30 @@
             if (!sprite) {
                 return
             }
-            sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
-            sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
-            sprite.frame.x = sprite.texture.width / 2 + 100 * Math.cos(timestamp/100)
-            sprite.frame.y = sprite.texture.height / 2 + 100 * Math.sin(timestamp/100)
+            // sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
+            // sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
+            // sprite.frame.x = sprite.texture.width / 2 + 100 * Math.cos(timestamp/100)
+            // sprite.frame.y = sprite.texture.height / 2 + 100 * Math.sin(timestamp/100)
         }
     })
     document.body.append(renderer.canvas)
     loader.addImage('Amirsay','static/amirsay.jpg')
     loader.addJson('persons','static/persons.json')
     loader.load (() => {
-        sprite = new Sprite (loader.getImage('Amirsay'))  //--изо кот загрущили с клиента
+        sprite = new Sprite (loader.getImage('Amirsay'), {
+            x:0, y:0, width:100, height:100
+        })
         renderer.stage.add(sprite)
 
 
-        sprite.frame.x = 278 // ---позиция рамки
+        /*sprite.frame.x = 278 // ---позиция рамки
         sprite.frame.y = 250
         sprite.frame.width = 200
         sprite.frame.height = 170
         // sprite.x = 100
         // sprite.y = 300
         sprite.width = 200
-        sprite.height = 170
+        sprite.height = 170*/
     })
 
 
