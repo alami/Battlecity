@@ -21,8 +21,8 @@
             if (!sprite) {
                 return
             }
-            sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
-            sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
+            // sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
+            // sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
         }
     })
     document.body.append(renderer.canvas)
@@ -31,10 +31,10 @@
     loader.load (() => {
         sprite = new Sprite (loader.getImage('Amirsay'))  //--изо кот загрущили с клиента
         renderer.stage.add(sprite)
-        sprite.x = 100
-        sprite.y = 300
-        sprite.width = 100
-        sprite.height = 100
+        // sprite.x = 100
+        // sprite.y = 300
+        // sprite.width = 100
+        // sprite.height = 100
     })
 
 
