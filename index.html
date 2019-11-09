@@ -21,6 +21,8 @@
             if (!sprite) {
                 return
             }
+            sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
+            sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
             sprite.frame.x = sprite.texture.width / 2 + 100 * Math.cos(timestamp/100)
             sprite.frame.y = sprite.texture.height / 2 + 100 * Math.sin(timestamp/100)
         }
