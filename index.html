@@ -14,26 +14,21 @@
         width: 500,
         height: 500,
         update(timestamp) {
-            console.log('update fired')
+            renderer.draw((canvas, content) => {
+                content.fillStyle = 'back'
+                content.beginPath()
+                content.arc(100, 100, 5, 0, Math.PI*2)
+                content.fill()
+            })
         }
     })
     document.body.append(renderer.canvas)
     loader.addImage('Amirsay','static/amirsay.jpg')
     loader.addJson('persons','static/persons.json')
-    loader.load // (()=>{ document.body.append(loader.resources.images['Amirsay']) })
-        /*const image = loader.getImage('Amirsay')
-        document.body.append(image)
-        const json = loader.getJson('persons')
-        console.log(renderer)
-    })*/
-    /*Loader.loadImage('static/amirsay.jpg')
-        .then(image => {
-            //console.log(image)
-            document.body.append(image)
-        })*/
+    loader.load
 
 
 </script>
-<!--<h1>Battlecity</h1>-->
+
 </body>
 </html>

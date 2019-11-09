@@ -15,7 +15,9 @@
         tick (timestamp) {
             this.update(timestamp)
             requestAnimationFrame(timestamp => this.tick())
-            //console.log('tick')
+        }
+        draw (callback) {
+            callback(this.canvas, this.context)
         }
     }
     window.GameEngine = window.GameEngine || {}
