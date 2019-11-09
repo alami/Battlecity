@@ -17,6 +17,12 @@
         addJson (name, address) {
             this.loadOrder.jsons.push({name,address})
         }
+        getImage (name) {
+            return this.resources.images[name]
+        }
+        getJson (name) {
+            return this.resources.jsons[name]
+        }
         load (callback) {
             const promices = []
             for (const imageData of this.loadOrder.images) {

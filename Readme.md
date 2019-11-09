@@ -203,6 +203,45 @@ Loader {loadOrder: {…}, resources: {…}}
 и это все будут храниться в нашем лодере
 1-12 comments
 1-13 github
-
-
 1-25
+-----------------------------------------------2day : class Game --------
+0-00 добавим ф-ционала в лоадер 
+1-12 а именно возможность вытягивать ресурсы из лодера
+2-24 --это устаревшая версия
+    getName (searchName) {
+        for (const { image, name } of this.resources.images) {
+            if (searchName === name) {
+                return image
+            }
+        }
+    }
+    getJson (searchName) {
+        for (const { json, name } of this.resources.jsons) {
+            if (searchName === name) {
+                return json
+            }
+        }
+    }
+3-12 ---новая 
+    getName (name) {
+        return this.resources.images[name]
+    }
+    getJson (name) {
+        return this.resources.jsons[name]
+    }
+4-06 тогда выведем картинку
+ loader.load (()=>{
+        // console.log('Images loaded')
+        document.body.append(loader.getImage('Amirsay'))
+    })
+5-15 или все вместе 
+loader.load (()=>{
+        const image = loader.getImage('Amirsay')
+        document.body.append(image)
+        const json = loader.getJson('persons')
+        console.log(json)
+    })
+    
+    
+    
+1-32
