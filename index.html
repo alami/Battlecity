@@ -11,31 +11,30 @@
 <script src="engine/Container.js"></script>
 <script>
     const { Loader, Renderer, Sprite, Container } = GameEngine
+    let sprite = null
     const loader = new Loader
     const renderer = new Renderer ({
         width: 500,
         height: 500,
         background: 'grey',
-        /*update(timestamp) {
-            renderer.draw((canvas, content) => {
-                content.fillStyle = 'red'
-                content.beginPath()
-                content.arc(
-                    canvas.width / 2 + 100 * Math.cos(timestamp/100),
-                    canvas.width / 2 + 100 * Math.sin(timestamp/100),
-                    5,
-                    0,
-                    Math.PI*2)
-                content.fill()
-            })
-        }*/
+        update(timestamp) {
+            if (!sprite) {
+                return
+            }
+            sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
+            sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
+        }
     })
     document.body.append(renderer.canvas)
     loader.addImage('Amirsay','static/amirsay.jpg')
     loader.addJson('persons','static/persons.json')
     loader.load (() => {
-        const sprite = new Sprite (loader.getImage('Amirsay'))  //--изо кот загрущили с клиента
+        sprite = new Sprite (loader.getImage('Amirsay'))  //--изо кот загрущили с клиента
         renderer.stage.add(sprite)
+        sprite.x = 100
+        sprite.y = 300
+        sprite.width = 100
+        sprite.height = 100
     })
 
 
