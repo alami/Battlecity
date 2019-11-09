@@ -31,10 +31,16 @@
     loader.load (() => {
         sprite = new Sprite (loader.getImage('Amirsay'))  //--изо кот загрущили с клиента
         renderer.stage.add(sprite)
+
+
+        sprite.frame.x = 278 // ---позиция рамки
+        sprite.frame.y = 250
+        sprite.frame.width = 200
+        sprite.frame.height = 170
         // sprite.x = 100
         // sprite.y = 300
-        // sprite.width = 100
-        // sprite.height = 100
+        sprite.width = 200
+        sprite.height = 170
     })
 
 
