@@ -207,6 +207,9 @@ Loader {loadOrder: {…}, resources: {…}}
 -----------------------------------------------2day : class Game --------
 0-00 добавим ф-ционала в лоадер 
 1-12 а именно возможность вытягивать ресурсы из лодера
+[обязательно вытягиватьресурсы после загрузки лоадера :) 
+    loader.load (()=>{
+        document.body.append(loader.resources.images['Amirsay']) })  ]
 2-24 --это устаревшая версия
     getName (searchName) {
         for (const { image, name } of this.resources.images) {
@@ -241,7 +244,16 @@ loader.load (()=>{
         const json = loader.getJson('persons')
         console.log(json)
     })
-    
+0-06-10 - список участников - 6 дней + защита проекта    
+0-07 создадим теперь класс Application , но т.к. это игра, назовом его Render    
+    ;()();   --опять оборачиваем в самовызывающуюся ф-ию
+;(function () {
+    'use strict'Render = Render
+    window.GameEngine = window.GameEngine || {}  --- скопируем из лодера
+    window.GameEngine.   --- только заменим класс Loader на Render
+})();
+
+
     
     
 1-32
