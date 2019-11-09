@@ -6,17 +6,26 @@
 </head>
 <body>
 <script src="engine/Loader.js"></script>
+<script src="engine/Renderer.js"></script>
 <script>
-    const { Loader } = GameEngine
-    const loader = new Loader()
+    const { Loader, Renderer } = GameEngine
+    const loader = new Loader
+    const renderer = new Renderer ({
+        width: 500,
+        height: 500,
+        update(timestamp) {
+            console.log('update fired')
+        }
+    })
+    document.body.append(renderer.canvas)
     loader.addImage('Amirsay','static/amirsay.jpg')
     loader.addJson('persons','static/persons.json')
-    loader.load (()=>{
-        const image = loader.getImage('Amirsay')
+    loader.load // (()=>{ document.body.append(loader.resources.images['Amirsay']) })
+        /*const image = loader.getImage('Amirsay')
         document.body.append(image)
         const json = loader.getJson('persons')
-        console.log(json)
-    })
+        console.log(renderer)
+    })*/
     /*Loader.loadImage('static/amirsay.jpg')
         .then(image => {
             //console.log(image)
@@ -25,6 +34,6 @@
 
 
 </script>
-<h1>Battlecity</h1>
+<!--<h1>Battlecity</h1>-->
 </body>
 </html>

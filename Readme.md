@@ -252,6 +252,85 @@ loader.load (()=>{
     window.GameEngine = window.GameEngine || {}  --- скопируем из лодера
     window.GameEngine.   --- только заменим класс Loader на Render
 })();
+0-08 Render - глагол, а класс назовем все таки  Renderer 
+0-09 игра будуь орисовываться на Canvas и благодаря такой сущности как Context
+надо будут создавать для каждого экз-ра Renderer =>
+0-10 class Renderer {
+       constructor () {
+         this.canvas = document.createElement('canvas') --виртуальный DOM
+         this.context = this.canvas.getContext('2d')    --DOM-элемент  
+прогер работает не с верской HTML, а с  DOM, не с тегом, а с DOM-элементов  
+виртуальный DOM - это таги, кот нет на основной стр-це, еще недобавлен на стр-цу бразера [видимую]
+0-11 в момент добавления на стр-цу, виртуальный DOM станет реальным => просто DOM-элемент 
+=> const { Loader, Renderer } = GameEngine  ---вытащим Renderer
+   const loader = new Loader()
+   const renderer = new Renderer()
+0-12 canvas добавить на нашу стр-цу: удалим 5-15
+ и добавим тот самы созданный виртульаный canvas
+    document.body.append(renderer.canvas)
+см в F12/Element <canvas> и даже есть размеры 300х50
+можно задать размеры в кострукторе, добавив аргументы в кострукторе - объект с полями
+0-13class Renderer {
+      constructor (args = {}) { ---по умолчанию пустой объект 50x50
+        this.canvas = document.createElement('canvas')
+        this.context = this.canvas.getContext('2d')
+
+        this.canvas.width = args.width || 50
+        this.canvas.height = args.height || 50
+        this.update = args.update || (() => {})  ---см ниже, по умолч ф-ция ничего не делает
+        
+        requestAnimationFrame(timestamp => this.tick()) --встоенный в броузер метод JS,
+             чья callback ф-ция--^--будет вызываться перед самым обновлением экрана
+             т.е. при обновлении 60гц - 60 раз
+             т.к. эта ф-ция вызовется только 1 раз, надо вызывать ее ниже в tick() вновь и вновь
+        }
+        tick (timestamp) {     ----т.к.tick() ф-ция еще  не сущ-ет сделаем заглушку
+                      ^--едиственный аргумент - время сущ-ния нашей стр-цы
+            requestAnimationFrame(timestamp => this.tick())} --вызывать вновь и вновь
+                                                  --рекурсивно,т.е. вызывая саму себя
+            console.log('fired') --просто посмотрим ск-ко раз успел обновится экран                                                               
+      }  
+    const renderer = new Renderer ({  ---- и вызов
+        width: 500,
+        height: 500
+0-17    update(timestamp) { --но на тик надо реагировать
+            ---и лучше в тех ф-циях кот этот тик будут вызывать по плану update() и render()
+            console.log('update fired') --тестируем вызов-счетчик быстро крутится 
+        }
+    })
+0-19 почему не риагировать в тик() ф-ия ? 
+Она как бы приватная, принадлежит экз-ру класса и вызывается своими магимческими способами
+requestAnimationFrame() задействованы, и сами не сможем установить свзяь с тик()-ом,
+не нарушив логику класса => просто вставим свою ф-цию
+не важно есть update() - не важно, чтобы все работало как обычно
+
+0-21 выведем элементарную фигуру в браузере  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     
