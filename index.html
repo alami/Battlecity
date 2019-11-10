@@ -22,6 +22,7 @@
             if (!sprite) {
                 return
             }
+sprite.rotation += timestamp / 100000
             // sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
             // sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
             // sprite.frame.x = sprite.texture.width / 2 + 100 * Math.cos(timestamp/100)
@@ -33,17 +34,22 @@
     loader.addJson('persons','static/persons.json')
     loader.load (() => {
         sprite = new Sprite (loader.getImage('Amirsay'), {
-            //anchorX: 0.5, anchorY: 0.5
+            x: renderer.canvas.width /2 ,
+            y: renderer.canvas.height /2 ,
+            rotation: Math.PI/2,
+            scale:0.25,
+            anchorX: 0.5,
+            anchorY: 0.5
         })
 
         const container = new Container()
-        container.x = 10
+        /*container.x = 10
         container.y = 10
         container.rotation = Math.PI/4
         container.scaleX = 0.25
         container.scaleY = 0.25
         container.anchorX= 0.5
-        container.anchorY= 0.5
+        container.anchorY= 0.5*/
 
         renderer.stage.add(container)
         container.add(sprite)
