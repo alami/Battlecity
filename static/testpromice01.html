@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Promice 01</title>
+</head>
+<body>
+<script>
+function p(sec,msg) {
+    console.log('START S '+msg);
+    var date = Date.now();
+    var curDate = null;
+    do {
+        curDate = Date.now();
+    } while (curDate-date < sec * 1000);
+    console.log('FiN   S '+msg);
+}
+function pasyn(sec,msg) {
+    console.log('START A '+msg);
+    setTimeout(function() {
+        console.log('FiN   A'+msg);
+    }, (sec * 1000));
+}
+function chopCarrots() {p(2,'chop Carrots');}
+function chopOnions() {p(2,'chop Onions');}
+function addCarrots(a) {p(2,'add Carrots');}
+function addOnions(a) {p(2,'add Onions');}
+function boilPot() {p(1,'WAiT boil Pot');}
+function letPotKeepBoiling(a) {p(5,'WAiT let Pot Keep Boiling');}
+async function makeSoup() {
+    const pot = boilPot();
+    chopCarrots();
+    chopOnions();
+    await pot;
+    addCarrots();
+    await letPotKeepBoiling(5);
+    addOnions();
+    await letPotKeepBoiling(10);
+    console.log("Ваш овощной суп готов!");
+}
+
+makeSoup();
+
+</script>
+<h1>Test Promice 01</h1>
+</body>
+</html>
