@@ -12,17 +12,18 @@
 <script src="engine/Container.js"></script>
 <script>
     const { Loader, Renderer, Sprite, Container, DisplayObject } = GameEngine
-    let sprite = null
+    let sprite1 = null
+    let sprite2 = null
     const loader = new Loader
     const renderer = new Renderer ({
         width: 500,
         height: 500,
         background: 'grey',
         update(timestamp) {
-            if (!sprite) {
+            if (!sprite1 || !sprite2) {
                 return
             }
-sprite.rotation += timestamp / 100000
+//sprite.rotation += timestamp / 100000
             // sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
             // sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
             // sprite.frame.x = sprite.texture.width / 2 + 100 * Math.cos(timestamp/100)
@@ -33,10 +34,18 @@ sprite.rotation += timestamp / 100000
     loader.addImage('Amirsay','static/amirsay.jpg')
     loader.addJson('persons','static/persons.json')
     loader.load (() => {
-        sprite = new Sprite (loader.getImage('Amirsay'), {
-            x: renderer.canvas.width /2 ,
-            y: renderer.canvas.height /2 ,
-            rotation: Math.PI/2,
+        sprite1 = new Sprite (loader.getImage('Amirsay'), {
+            x: 100,
+            y: 200,
+            //rotation: Math.PI/2,
+            scale:0.25,
+            anchorX: 0.5,
+            anchorY: 0.5
+        })
+        sprite2 = new Sprite (loader.getImage('Amirsay'), {
+            x: 400,
+            y: 200,
+            //rotation: Math.PI/2,
             scale:0.25,
             anchorX: 0.5,
             anchorY: 0.5
@@ -52,7 +61,8 @@ sprite.rotation += timestamp / 100000
         container.anchorY= 0.5*/
 
         renderer.stage.add(container)
-        container.add(sprite)
+        container.add(sprite1)
+        container.add(sprite2)
 
         /*sprite.frame.x = 278 // ---позиция рамки
         sprite.frame.y = 250
