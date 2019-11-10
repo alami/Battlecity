@@ -16,7 +16,7 @@
         draw (canvas, context) {
             context.save()
             context.translate (this.x, this.y)
-            context.rotate (this.rotation)
+            context.rotate (-this.rotation)
             context.scale (this.scaleX, this.scaleY )
 
             for (const displayObject of this.displayObjects) {

@@ -14,6 +14,7 @@
     const { Loader, Renderer, Sprite, Container, DisplayObject } = GameEngine
     let sprite1 = null
     let sprite2 = null
+    let container = null
     const loader = new Loader
     const renderer = new Renderer ({
         width: 500,
@@ -23,6 +24,7 @@
             if (!sprite1 || !sprite2) {
                 return
             }
+container.rotation += timestamp / 100000
 //sprite.rotation += timestamp / 100000
             // sprite.x = renderer.canvas.width / 2 + 100 * Math.cos(timestamp/100)
             // sprite.y = renderer.canvas.height / 2 + 100 * Math.sin(timestamp/100)
@@ -51,9 +53,10 @@
             anchorY: 0.5
         })
 
-        const container = new Container()
-        /*container.x = 10
-        container.y = 10
+        container = new Container()
+        container.x = 100
+        container.rotation = Math.PI/4
+        /*container.y = 10
         container.rotation = Math.PI/4
         container.scaleX = 0.25
         container.scaleY = 0.25
