@@ -5,12 +5,13 @@
     <title>Battlecity</title>
 </head>
 <body>
+<script src="engine/DisplayObject.js"></script>
 <script src="engine/Loader.js"></script>
 <script src="engine/Renderer.js"></script>
 <script src="engine/Sprite.js"></script>
 <script src="engine/Container.js"></script>
 <script>
-    const { Loader, Renderer, Sprite, Container } = GameEngine
+    const { Loader, Renderer, Sprite, Container, DisplayObject } = GameEngine
     let sprite = null
     const loader = new Loader
     const renderer = new Renderer ({
@@ -32,7 +33,7 @@
     loader.addJson('persons','static/persons.json')
     loader.load (() => {
         sprite = new Sprite (loader.getImage('Amirsay'), {
-            anchorX: 0.5, anchorY: 0.5
+            //anchorX: 0.5, anchorY: 0.5
         })
 
         const container = new Container()
@@ -48,6 +49,8 @@
         sprite.width = 200
         sprite.height = 170*/
     })
+
+    // console.log(renderer.stage)
 
 
 </script>
