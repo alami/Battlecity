@@ -4,9 +4,9 @@
     class Sprite extends GameEngine.DisplayObject{
         constructor (texture, args = {}) {
             super(args)
-            this.texture = texture
-
             const frame = args.frame || {}
+
+            this.texture = texture
 
             this.frame = {
                 x: frame.x || 0,
@@ -28,8 +28,8 @@
                 this.frame.height,
                 this.absoluteX,
                 this.absoluteY ,
-                this.width,
-                this.height
+                this.width * this.scaleX,
+                this.height * this.scaleY
               )
             }
         }

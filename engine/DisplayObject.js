@@ -17,14 +17,14 @@
             }
         }
         get absoluteX () {
-            return this.x - this.anchorX * this.width
+            return this.x - this.anchorX * this.width  * this.scaleX
         }
         set absoluteX (value) {
             this.x = value + this.anchorX * this.width
             return value
         }
         get absoluteY () {
-            return this.y - this.anchorY * this.height
+            return this.y - this.anchorY * this.height  * this.scaleY
         }
         set absoluteY (value) {
             this.y = value + this.anchorY * this.height
