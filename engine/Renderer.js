@@ -11,9 +11,24 @@
             this.canvas.height = args.height ||50
             this.update = args.update || (() => {})
 
-            this.stage = new GameEngine.Container
+            this.stage = new GameEngine.Container()
 
             requestAnimationFrame(timestamp => this.tick(timestamp))
+        }
+        get displayObjects () {
+            return _getDisplayObjects (this.stage)
+            function _getDisplayObjects (container, result=[]) {
+                for (const displayObject of container.displayObjects) {
+                    if (displayObject instanceof GameEngine.Container) {
+                        _getDisplayObjects(displayObject, result)
+                    }
+                    else {
+                        result.push(displayObject)
+                    }
+                }
+
+                return result
+            }
         }
         tick (timestamp) {
             this.update(timestamp)

@@ -32,10 +32,12 @@
     loader.addJson('persons','static/persons.json')
     loader.load (() => {
         sprite = new Sprite (loader.getImage('Amirsay'), {
-            x:0, y:0, width:100, height:100
+            anchorX: 0.5, anchorY: 0.5
         })
-        renderer.stage.add(sprite)
 
+        const container = new Container()
+        renderer.stage.add(container)
+        container.add(sprite)
 
         /*sprite.frame.x = 278 // ---позиция рамки
         sprite.frame.y = 250
