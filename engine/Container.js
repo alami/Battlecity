@@ -22,18 +22,19 @@
             }
         }
         draw (canvas, context) {
-            context.save()
-            context.translate (this.x, this.y)
-            context.rotate (-this.rotation)
-            context.scale (this.scaleX, this.scaleY )
+            super.draw(()=>{
+                context.save()
+                context.translate (this.x, this.y)
+                context.rotate (-this.rotation)
+                context.scale (this.scaleX, this.scaleY )
 
-            for (const displayObject of this.displayObjects) {
-                displayObject.draw(canvas,context)
-            }
-            context.restore()
+                for (const displayObject of this.displayObjects) {
+                    displayObject.draw(canvas,context)
+                }
+                context.restore()
+            })
         }
-
-        }
+    }
     window.GameEngine = window.GameEngine || {}
     window.GameEngine.Container = Container
 })();
