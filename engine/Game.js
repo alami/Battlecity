@@ -7,20 +7,38 @@
             this.scenesCollection = new GameEngine.Container()
 
             if (args.scenes) {
-                this.scenesCollection.add(...args.scenes) //тогда просто добавим
+                this.addScene(...args.scenes)
             }
             if (args.el && args.el.appendChild) {
                 args.el.appendChild(this.renderer.canvas)
             }
-            for (const scene of this.scenes) {
-                if (scene.autoStart) {
+            const autoStartedScenes = this.scenes.filter(x => x.autoStart)
+            for (const scene of autoStartedScenes) {
                     scene.loading(this.loader)
+            }
+            this.loader.load(() => {
+                for (const scene of autoStartedScenes) {
+                    scene.init()
                 }
+            })
+            requestAnimationFrame(timestamp => this.tick(timestamp))
+
+        }
+        addScene (...scenes) {
+            this.scenesCollection.add(...scenes)
+            for (const scene of scenes) {
+                scene.parent = this // (эта игра)
             }
         }
         get scenes () {
             return  this.scenesCollection.displayObjects
+        }
+        tick (timestamp) {
+            //this.update(timestamp)
+            this.renderer.clear()
+            //this.renderer.render()
 
+            requestAnimationFrame(timestamp => this.tick(timestamp))
         }
     }
     window.GameEngine = window.GameEngine || {}

@@ -3,8 +3,11 @@
     class Scene extends GameEngine.Container{
         constructor (args = {}) {
             super();
+
             this.autoStart = args.autoStart | false
             this.stage = this.displayObjects
+            this.game = null
+
             if (args.loading) {
                 this.loading = args.loading.bind(this)
             }
