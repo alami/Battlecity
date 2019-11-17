@@ -6,12 +6,14 @@
 </head>
 <body>
 <script src="engine/DisplayObject.js"></script>
+<script src="engine/Container.js"></script>
 <script src="engine/Loader.js"></script>
 <script src="engine/Renderer.js"></script>
 <script src="engine/Sprite.js"></script>
-<script src="engine/Container.js"></script>
+<script src="engine/Scene.js"></script>
+<script src="engine/Game.js"></script>
 <script>
-    const { Loader, Renderer, Sprite, Container, DisplayObject } = GameEngine
+    const { Game, Scene, Loader, Renderer, Sprite, Container, DisplayObject } = GameEngine
     let sprite1 = null
     let sprite2 = null
     let container = null
@@ -78,7 +80,26 @@
         sprite.height = 170*/
     })
 
-    // console.log(renderer.stage)
+    const mainScene = new Scene ({
+        autoStart: true,
+        loading (loader) {
+            console.log('loding fired')
+        },
+        init () {
+            console.log('init fired')
+        },
+        update () {
+            console.log('update fired')
+        }
+    })
+
+    const game = new Game ({
+        el: document.body,
+        width: 500,
+        height: 500,
+        background: 'green',
+        scenes: [mainScene]
+    })
 
 
 </script>
