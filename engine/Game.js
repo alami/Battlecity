@@ -14,11 +14,16 @@
             }
             const autoStartedScenes = this.scenes.filter(x => x.autoStart)
             for (const scene of autoStartedScenes) {
+                scene.status = 'loading'
                     scene.loading(this.loader)
             }
             this.loader.load(() => {
                 for (const scene of autoStartedScenes) {
+                    scene.status = 'init'
                     scene.init()
+                }
+                for (const scene of autoStartedScenes) {
+                    scene.status = 'started'
                 }
             })
             requestAnimationFrame(timestamp => this.tick(timestamp))
@@ -35,9 +40,14 @@
         }
         tick (timestamp) {
             //this.update(timestamp)
-            this.renderer.clear()
             //this.renderer.render()
+            for (const scene of this.scenes) {
+                if (scene.status === 'started') {
+                    scene.update(timestamp)
+                }
+            }
 
+           this.renderer.clear()
             requestAnimationFrame(timestamp => this.tick(timestamp))
         }
     }
