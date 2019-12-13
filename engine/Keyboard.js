@@ -23,6 +23,9 @@
                     case "ArrowRight":
                         keyboard.arrowRight = true
                         break
+                    case "Space":
+                        keyboard.space = true
+                        break
                 }
             })
             document.body.addEventListener('keyup', function (event) {
@@ -39,6 +42,9 @@
                         break
                     case "ArrowRight":
                         keyboard.arrowRight = false
+                        break
+                    case "Space":
+                        keyboard.space = false
                         break
                 }
             })

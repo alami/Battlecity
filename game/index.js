@@ -19,9 +19,14 @@ const mainScene = new Scene ({
     },
     update (timestamp) {
         const { keyboard } = this.parent
-        this.sprite.rotation = timestamp / 1000
+            //this.sprite.rotation = timestamp / 1000
+        let speedRotation = keyboard.space ? Math.PI / 100 : Math.PI / 200
         if (keyboard.arrowUp) {
-            this.sprite.y -= 1
+            //this.sprite.y -= 1
+            this.sprite.rotation += speedRotation // Math.PI / 100  //1
+        }
+        if (keyboard.arrowDown) {
+            this.sprite.rotation -= speedRotation // Math.PI / 100
         }
     }
 })
