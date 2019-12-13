@@ -90,7 +90,9 @@
             const bunnyTexture = this.parent.loader.getImage('bunny')
             this.sprite = new Sprite(bunnyTexture, {
                 scale: 0.25,
-                x: this.parent.renderer.canvas.width /2,
+                anchorX: 0.5,
+                anchorY: 0.5,
+                x: this.parent.renderer.canvas.width / 2,
                 y: this.parent.renderer.canvas.height /2,
             })
             this.add(this.sprite)
