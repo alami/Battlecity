@@ -18,7 +18,11 @@ const mainScene = new Scene ({
         this.add(this.sprite)
     },
     update (timestamp) {
+        const { keyboard } = this.parent
         this.sprite.rotation = timestamp / 1000
+        if (keyboard.arrowUp) {
+            this.sprite.y -= 1
+        }
     }
 })
 

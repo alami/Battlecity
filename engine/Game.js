@@ -5,6 +5,7 @@
             this.renderer = new GameEngine.Renderer(args)
             this.loader = new GameEngine.Loader()
             this.scenesCollection = new GameEngine.Container()
+            this.keyboard = new GameEngine.Keyboard()
 
             if (args.scenes) {
                 this.addScene(...args.scenes)
