@@ -39,15 +39,14 @@
             return  this.scenesCollection.displayObjects
         }
         tick (timestamp) {
-            //this.update(timestamp)
-            //this.renderer.render()
-            for (const scene of this.scenes) {
-                if (scene.status === 'started') {
-                    scene.update(timestamp)
-                }
+            const startedScenes = this.scenes.filter (x => x.status === 'started')
+            for (const scene of startedScenes) {
+                scene.update(timestamp)
             }
-
-           this.renderer.clear()
+            this.renderer.clear()
+            for (const scene of startedScenes) {
+                scene.draw(this.renderer.canvas, this.renderer.context)
+            }
             requestAnimationFrame(timestamp => this.tick(timestamp))
         }
     }

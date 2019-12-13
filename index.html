@@ -83,10 +83,17 @@
     const mainScene = new Scene ({
         autoStart: true,
         loading (loader) {
-            console.log('loding fired')
+            loader.addImage('bunny', 'static/bunny.jpg')
+            loader.addJson('persons', 'static/persons.json')
         },
         init () {
-            console.log('init fired')
+            const bunnyTexture = this.parent.loader.getImage('bunny')
+            this.sprite = new Sprite(bunnyTexture, {
+                scale: 0.25,
+                x: this.parent.renderer.canvas.width /2,
+                y: this.parent.renderer.canvas.height /2,
+            })
+            this.add(this.sprite)
         },
         update () {
             console.log('update fired')
