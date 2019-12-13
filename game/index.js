@@ -1,4 +1,4 @@
-const { Game, Scene, Sprite } = GameEngine
+const { Game, Scene, Sprite, Point, Line } = GameEngine
 
 const mainScene = new Scene ({
     autoStart: true,
@@ -15,7 +15,19 @@ const mainScene = new Scene ({
             x: this.parent.renderer.canvas.width / 2,
             y: this.parent.renderer.canvas.height /2,
         })
-        this.add(this.sprite)
+        this.point = new Point({
+            x: this.sprite.x,
+            y: this.sprite.y,
+        })
+        this.line = new Line({
+            x1:0,
+            y1:0,
+            x2: this.parent.renderer.canvas.width,
+            y2: this.parent.renderer.canvas.height,
+            color: "yellow",
+            width: 2
+        })
+        this.add(this.sprite, this.point, this.line)
     },
     update (timestamp) {
         const { keyboard } = this.parent
