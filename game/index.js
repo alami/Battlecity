@@ -1,8 +1,8 @@
-const { Game, Scene, Sprite, Point, Line, Container } = GameEngine
+const { Game, Scene, Body, Point, Line, Container } = GameEngine
 
 const mainScene = new Scene ({
     name: 'mainScene',
-    //autoStart: true,
+    autoStart: true,
     loading (loader) {
         loader.addImage('bunny', 'static/bunny.jpg')
         loader.addJson('persons', 'static/persons.json')
@@ -10,7 +10,7 @@ const mainScene = new Scene ({
     init () {
         const bunnyTexture = this.parent.loader.getImage('bunny')
         const graphicContainer = new Container()
-        this.sprite = new Sprite(bunnyTexture, {
+        this.bunny = new Body(bunnyTexture, {
             scale: 0.25,
             anchorX: 0.5,
             anchorY: 0.5,
@@ -18,8 +18,8 @@ const mainScene = new Scene ({
             y: this.parent.renderer.canvas.height /2,
         })
         const point = new Point({
-            x: this.sprite.x,
-            y: this.sprite.y,
+            x: this.bunny.x,
+            y: this.bunny.y,
         })
         const line = new Line({
             x1:0,
@@ -30,7 +30,7 @@ const mainScene = new Scene ({
             width: 2
         })
         graphicContainer.add(point, line)
-        this.add( this.sprite )
+        this.add( this.bunny )
         this.add( graphicContainer )
     },
 
@@ -49,9 +49,9 @@ const mainScene = new Scene ({
         if (keyboard.arrowDown) {
             this.sprite.rotation -= speedRotation // Math.PI / 100
         }
-        if (timestamp > 5000) {
+        /*if (timestamp > 5000) {
             this.parent.finishScene(this)
-        }
+        }*/
     }
 })
 
