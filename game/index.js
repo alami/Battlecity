@@ -20,7 +20,7 @@ const mainScene = new Scene ({
             x: this.sprite.x,
             y: this.sprite.y,
         })
-        const line = new Line({
+        this.line = new Line({
             x1:0,
             y1:0,
             x2: this.parent.renderer.canvas.width,
@@ -28,7 +28,7 @@ const mainScene = new Scene ({
             color: "yellow",
             width: 2
         })
-        graphicContainer.add(point, line)
+        graphicContainer.add(point, this.line)
         this.add( this.sprite )
         this.add( graphicContainer )
     },
@@ -43,6 +43,7 @@ const mainScene = new Scene ({
         if (keyboard.arrowDown) {
             this.sprite.rotation -= speedRotation // Math.PI / 100
         }
+        this.line.rotation = timestamp / 100
     }
 })
 
