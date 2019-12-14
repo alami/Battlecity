@@ -1,4 +1,4 @@
-const { Game, Scene, Body, Point, Line, Container } = GameEngine
+const { Game, Scene, Body, Container } = GameEngine
 
 const mainScene = new Scene ({
     name: 'mainScene',
@@ -16,22 +16,13 @@ const mainScene = new Scene ({
             anchorY: 0.5,
             x: this.parent.renderer.canvas.width / 2,
             y: this.parent.renderer.canvas.height /2,
+            debug: true,
+            body: {
+                x:0,y:0.5,width:1, height:0.5
+            }
         })
-        const point = new Point({
-            x: this.bunny.x,
-            y: this.bunny.y,
-        })
-        const line = new Line({
-            x1:0,
-            y1:0,
-            x2: this.parent.renderer.canvas.width,
-            y2: this.parent.renderer.canvas.height,
-            color: "yellow",
-            width: 2
-        })
-        graphicContainer.add(point, line)
+
         this.add( this.bunny )
-        this.add( graphicContainer )
     },
 
     beforeDestroy () {
