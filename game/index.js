@@ -1,4 +1,4 @@
-const { Game, Scene, Sprite, Point, Line } = GameEngine
+const { Game, Scene, Sprite, Point, Line, Container } = GameEngine
 
 const mainScene = new Scene ({
     autoStart: true,
@@ -8,6 +8,7 @@ const mainScene = new Scene ({
     },
     init () {
         const bunnyTexture = this.parent.loader.getImage('bunny')
+        const graphicContainer = new Container()
         this.sprite = new Sprite(bunnyTexture, {
             scale: 0.25,
             anchorX: 0.5,
@@ -27,7 +28,9 @@ const mainScene = new Scene ({
             color: "yellow",
             width: 2
         })
-        this.add(this.sprite, point, line)
+        graphicContainer.add(point, line)
+        this.add( this.sprite )
+        this.add( graphicContainer )
     },
     update (timestamp) {
         const { keyboard } = this.parent
