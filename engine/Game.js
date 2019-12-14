@@ -51,20 +51,23 @@
             requestAnimationFrame(timestamp => this.tick(timestamp))
         }
 
-        startScene (name) {
-            let scene = null
+        getScene (name) {
             if (name instanceof GameEngine.Scene) {
-                if (this.scenes.includes(scene))
-                    scene = name
+                if (this.scenes.includes(name))
+                    return name
             }
-            else if (typeof name === "string") {
-                for (const sceneItem of this.scenes) {
-                    if (sceneItem.name === name) {
-                        scene = sceneItem
+            if (typeof name === "string") {
+                for (const scene of this.scenes) {
+                    if (scene.name === name) {
+                        return  scene
                     }
                 }
             }
-            if (scene === null) {
+        }
+
+        startScene (name) {
+            const  scene = this.getScene(name)
+            if (!scene) {
                 return false;
             }
             scene.status = 'loading'
@@ -77,15 +80,13 @@
             return true
         }
         finishScene (name ) {
-            if (name instanceof GameEngine.Scene) {
-
+            const  scene = this.getScene(name)
+            if (!scene) {
+                return false;
             }
-            else if (typeof name === "string") {
-
-            }
-            else  {
-
-            }
+            scene.status = 'finished'
+            this.scenesCollection.remove(scene)
+            scene.beforeDestroy()
         }
     }
     window.GameEngine = window.GameEngine || {}

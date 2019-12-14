@@ -2,7 +2,7 @@ const { Game, Scene, Sprite, Point, Line, Container } = GameEngine
 
 const mainScene = new Scene ({
     name: 'mainScene',
-    autoStart: true,
+    //autoStart: true,
     loading (loader) {
         loader.addImage('bunny', 'static/bunny.jpg')
         loader.addJson('persons', 'static/persons.json')
@@ -33,6 +33,11 @@ const mainScene = new Scene ({
         this.add( this.sprite )
         this.add( graphicContainer )
     },
+
+    beforeDestroy () {
+        delete this.sprite
+    },
+
     update (timestamp) {
         const { keyboard } = this.parent
             //this.sprite.rotation = timestamp / 1000
@@ -43,6 +48,9 @@ const mainScene = new Scene ({
         }
         if (keyboard.arrowDown) {
             this.sprite.rotation -= speedRotation // Math.PI / 100
+        }
+        if (timestamp > 5000) {
+            this.parent.finishScene(this)
         }
     }
 })

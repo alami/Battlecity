@@ -5,8 +5,8 @@
             super(args)
             this.displayObjects = []
 
-            delete this.width
-            delete this.height
+            // delete this.width
+            // delete this.height
         }
         add (...displayObjects) {
             for (const displayObject of displayObjects) {
@@ -16,12 +16,12 @@
                 }
             }
         }
-        remove (...displayObject) {
+        remove (...displayObjects) {
             for (const displayObject of displayObjects) {
-                if (!this.displayObjects.includes(displayObject)) {
+                if (this.displayObjects.includes(displayObject)) {
                     const index = this.displayObjects.indexOf(displayObject)
                     this.displayObjects.splice(index, 1)
-                    displayObjects.setParent(null)
+                    displayObject.setParent(null)
                 }
             }
         }
