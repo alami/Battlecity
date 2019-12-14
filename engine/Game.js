@@ -16,7 +16,7 @@
             const autoStartedScenes = this.scenes.filter(x => x.autoStart)
             for (const scene of autoStartedScenes) {
                 scene.status = 'loading'
-                    scene.loading(this.loader)
+                scene.loading(this.loader)
             }
             this.loader.load(() => {
                 for (const scene of autoStartedScenes) {
@@ -49,6 +49,43 @@
                 scene.draw(this.renderer.canvas, this.renderer.context)
             }
             requestAnimationFrame(timestamp => this.tick(timestamp))
+        }
+
+        startScene (name) {
+            let scene = null
+            if (name instanceof GameEngine.Scene) {
+                if (this.scenes.includes(scene))
+                    scene = name
+            }
+            else if (typeof name === "string") {
+                for (const sceneItem of this.scenes) {
+                    if (sceneItem.name === name) {
+                        scene = sceneItem
+                    }
+                }
+            }
+            if (scene === null) {
+                return false;
+            }
+            scene.status = 'loading'
+            scene.loading(this.loader)
+            this.loader.load(() => {
+                scene.status = 'init'
+                scene.init()
+                scene.status = 'started'
+            })
+            return true
+        }
+        finishScene (name ) {
+            if (name instanceof GameEngine.Scene) {
+
+            }
+            else if (typeof name === "string") {
+
+            }
+            else  {
+
+            }
         }
     }
     window.GameEngine = window.GameEngine || {}
