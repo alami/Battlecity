@@ -9,6 +9,8 @@
 
             this.texture = texture
 
+            this.frames = args.frames || []
+
             this.velocity = {
                 x:velocity.x || 0, y:velocity.y || 0
             }
@@ -23,6 +25,33 @@
             this.width = args.width || this.frame.width //иначе не видно картинку
             this.height = args.height || this.frame.height
 
+        }
+        setFrameByKeys (...keys) {
+            const frame = this.getFrameByKeys (...keys)
+            if (!frame) {
+                return false
+            }
+            this.frame.x = frame.x
+            this.frame.y = frame.y
+            this.frame.width = frame.width
+            this.frame.height = frame.height
+        }
+
+        getFrameByKeys (...keys) {
+            let flag = false
+
+            for (const frame of this.frames) {
+                flag = true
+                for (const key of keys) {
+                    if (!frame.keys.includes(key)) {
+                        flag = false
+                        break
+                    }
+                }
+                if (flag) {
+                    return frame
+                }
+            }
         }
 
         tick(timestamp) {

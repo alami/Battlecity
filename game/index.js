@@ -4,26 +4,32 @@ const mainScene = new Scene ({
     name: 'mainScene',
     autoStart: true,
     loading (loader) {
-        loader.addImage('bunny', 'static/bunny.jpg')
-        loader.addJson('persons', 'static/persons.json')
+        loader.addImage('man', 'static/man.png')
+        loader.addJson('manAtlas', 'static/manAtlas.json')
     },
     init () {
-        const bunnyTexture = this.parent.loader.getImage('bunny')
-        const graphicContainer = new Container()
+        const manTexture = this.parent.loader.getImage('man')
+        //console.log(this.parent.loader.getJson('manAtlas'))
+        const manAtlas = this.parent.loader.getJson('manAtlas')
 
-        this.bunny = new Body(bunnyTexture, {
-            scale: 0.25,
+        this.man = new Body(manTexture, {
+            "frames": manAtlas.frames,
+            scale: 1,
             anchorX: 0.5,
             anchorY: 0.5,
             x: this.parent.renderer.canvas.width / 2,
             y: this.parent.renderer.canvas.height /2,
-            debug: true,
+            //debug: true,
             body: {
                 x:0,y:0.5,width:1, height:0.5
             }
         })
 
-        this.add( this.bunny )
+        this.man.setFrameByKeys('man', 'down','frame4')
+        this.man.width = this.man.frame.width
+        this.man.height = this.man.frame.height
+
+        this.add( this.man )
     },
 
     beforeDestroy () {
@@ -32,13 +38,13 @@ const mainScene = new Scene ({
 
     update (timestamp) {
         const { keyboard } = this.parent
-        this.bunny.velocity.x = 0
-        this.bunny.velocity.y = 0
+        this.man.velocity.x = 0
+        this.man.velocity.y = 0
         if (keyboard.arrowUp) {
-            this.bunny.velocity.y = -5
+            this.man.velocity.y = -5
         }
         if (keyboard.arrowDown) {
-            this.bunny.velocity.y = 5
+            this.man.velocity.y = 5
         }
 
     }
@@ -48,6 +54,6 @@ const game = new Game ({
     el: document.body,
     width: 500,
     height: 500,
-    background: 'green',
+    background: 'white',
     scenes: [mainScene]
 })
