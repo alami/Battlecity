@@ -10,6 +10,7 @@ const mainScene = new Scene ({
     init () {
         const bunnyTexture = this.parent.loader.getImage('bunny')
         const graphicContainer = new Container()
+
         this.bunny = new Body(bunnyTexture, {
             scale: 0.25,
             anchorX: 0.5,
@@ -31,18 +32,15 @@ const mainScene = new Scene ({
 
     update (timestamp) {
         const { keyboard } = this.parent
-            //this.sprite.rotation = timestamp / 1000
-        let speedRotation = keyboard.space ? Math.PI / 100 : Math.PI / 200
+        this.bunny.velocity.x = 0
+        this.bunny.velocity.y = 0
         if (keyboard.arrowUp) {
-            //this.sprite.y -= 1
-            this.sprite.rotation += speedRotation // Math.PI / 100  //1
+            this.bunny.velocity.y = -5
         }
         if (keyboard.arrowDown) {
-            this.sprite.rotation -= speedRotation // Math.PI / 100
+            this.bunny.velocity.y = 5
         }
-        /*if (timestamp > 5000) {
-            this.parent.finishScene(this)
-        }*/
+
     }
 })
 

@@ -5,11 +5,12 @@
         constructor (texture, args = {}) {
             super(args)
             const frame = args.frame || {}
+            const velocity = args.velocity || {}
 
             this.texture = texture
 
             this.velocity = {
-                x:0, y:0
+                x:velocity.x || 0, y:velocity.y || 0
             }
 
             this.frame = {
