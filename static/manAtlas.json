@@ -1,4 +1,17 @@
 {
+  "actions": [
+    {
+      "moveDown": {
+        "duration": 500,
+        "frames": [
+          ["man","down","frame1"],
+          ["man","down","frame2"],
+          ["man","down","frame3"],
+          ["man","down","frame4"]
+        ]
+      }
+    }
+  ],
   "frames": [
     {
       "keys": ["man","down","frame1"],

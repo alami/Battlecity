@@ -11,8 +11,8 @@ const mainScene = new Scene ({
     },
     init () {
         const manTexture = this.parent.loader.getImage('man')
-        //console.log(this.parent.loader.getJson('manAtlas'))
         const manAtlas = this.parent.loader.getJson('manAtlas')
+        console.log(manAtlas)
 
         this.man = new Body(manTexture, {
             "frames": manAtlas.frames,
@@ -41,7 +41,7 @@ const mainScene = new Scene ({
     update (timestamp) {
         const { keyboard } = this.parent
 
-        if (Util.delay('manFrameUpdate', 200)) {
+        if (Util.delay('manFrameUpdate', 150)) {
             n = n % 4 + 1
             this.man.setFrameByKeys('man', 'down','frame'+n)
         }

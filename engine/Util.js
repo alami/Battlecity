@@ -5,22 +5,18 @@
 
     const Util = {}
 
-    Util.delay = function delay (name, timeoff = null) {
+    Util.delay = function delay(name, timeoff = 0) {
         if (!delayCollection[name]) {
-            delayCollection[name] = {
-                lastMoment: Date.now(),
-                timeoff
-            }
+            delayCollection[name] = Date.now()
             return true
         }
-        if (delayCollection[name].lastMoment + timeoff > Date.now()) {
+        if (delayCollection[name] + timeoff > Date.now()) {
             return false
         }
-        delayCollection[name].lastMoment = Date.now()
-        delayCollection.timeoff = timeoff
+        delayCollection[name] = Date.now()
         return true
     }
 
     window.GameEngine = window.GameEngine || {}
-    window.GameEngine.Util  = Util
+    window.GameEngine.Util = Util
 })();
