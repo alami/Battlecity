@@ -8,6 +8,10 @@
 
             this.texture = texture
 
+            this.velocity = {
+                x:0, y:0
+            }
+
             this.frame = {
                 x: frame.x || 0,
                 y: frame.y || 0,
@@ -19,6 +23,13 @@
             this.height = args.height || this.frame.height
 
         }
+
+        tick(timestamp) {
+            //console.log(timestamp)
+            this.x += this.velocity.x
+            this.y += this.velocity.y
+        }
+
         draw (canvas, context) {
             super.draw(()=>{
                 context.save()

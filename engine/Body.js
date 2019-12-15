@@ -36,7 +36,7 @@
                 this.width,
                 this.height
             )
-            console.log('dbg: '+this.debug)
+            //console.log('dbg: '+this.debug)
             if (this.debug) {
                 context.fillStyle = 'rgba(255,0,0,0.3)'
                 context.beginPath()
