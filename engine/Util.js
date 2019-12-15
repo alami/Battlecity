@@ -5,18 +5,18 @@
 
     const Util = {}
 
-    Util.delay = function delay (name, timeoff = 0) {
+    Util.delay = function delay (name, timeoff = null) {
         if (!delayCollection[name]) {
             delayCollection[name] = {
-                lastMoment: Date.now()
+                lastMoment: Date.now(),
                 timeoff
             }
             return true
         }
-        if (delayCollection[name].lastMoment + timeoff < Date.now()) {
+        if (delayCollection[name].lastMoment + timeoff > Date.now()) {
             return false
         }
-        delayCollection[name].lastMoment = Date.now())
+        delayCollection[name].lastMoment = Date.now()
         delayCollection.timeoff = timeoff
         return true
     }

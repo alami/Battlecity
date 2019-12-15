@@ -1,4 +1,6 @@
-const { Game, Scene, Body, Container } = GameEngine
+const { Game, Scene, Body, Container, Util } = GameEngine
+
+let n = 1
 
 const mainScene = new Scene ({
     name: 'mainScene',
@@ -25,7 +27,7 @@ const mainScene = new Scene ({
             }
         })
 
-        this.man.setFrameByKeys('man', 'down','frame4')
+        this.man.setFrameByKeys('man', 'down','frame1')
         this.man.width = this.man.frame.width
         this.man.height = this.man.frame.height
 
@@ -38,6 +40,12 @@ const mainScene = new Scene ({
 
     update (timestamp) {
         const { keyboard } = this.parent
+
+        if (Util.delay('manFrameUpdate', 200)) {
+            n = n % 4 + 1
+            this.man.setFrameByKeys('man', 'down','frame'+n)
+        }
+
         this.man.velocity.x = 0
         this.man.velocity.y = 0
         if (keyboard.arrowUp) {
