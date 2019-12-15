@@ -15,7 +15,6 @@ const mainScene = new Scene ({
         console.log(manAtlas)
 
         this.man = new Body(manTexture, {
-            "frames": manAtlas.frames,
             scale: 1,
             anchorX: 0.5,
             anchorY: 0.5,
@@ -27,7 +26,11 @@ const mainScene = new Scene ({
             }
         })
 
-        this.man.setFrameByKeys('man', 'down','frame1')
+        this.setFramesCollection (manAtlas.frames)
+        this.setAnimationsCollection (manAtlas.actions)
+
+
+            this.man.setFrameByKeys('man', 'down','frame1')
         this.man.width = this.man.frame.width
         this.man.height = this.man.frame.height
 
