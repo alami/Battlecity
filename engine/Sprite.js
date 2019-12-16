@@ -57,6 +57,8 @@
             this.frame.y = frame.y
             this.frame.width = frame.width
             this.frame.height = frame.height
+            this.width = this.frame.width
+            this.height = this.frame.height
         }
 
         getFrameByKeys (...keys) {

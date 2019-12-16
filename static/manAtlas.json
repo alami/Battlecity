@@ -8,6 +8,33 @@
           ["man","down","frame3"],
           ["man","down","frame4"]
         ]
+      },
+      "moveLeft": {
+        "duration": 500,
+        "frames": [
+          ["man","left","frame1"],
+          ["man","left","frame2"],
+          ["man","left","frame3"],
+          ["man","left","frame4"]
+        ]
+      },
+      "moveRight": {
+        "duration": 500,
+        "frames": [
+          ["man","right","frame1"],
+          ["man","right","frame2"],
+          ["man","right","frame3"],
+          ["man","right","frame4"]
+        ]
+      },
+      "moveUp": {
+        "duration": 500,
+        "frames": [
+          ["man","up","frame1"],
+          ["man","up","frame2"],
+          ["man","up","frame3"],
+          ["man","up","frame4"]
+        ]
       }
     },
   "frames": [
@@ -38,6 +65,93 @@
       "y": 8,
       "width": 34,
       "height": 50
+    },
+
+    {
+      "keys": ["man","left","frame1"],
+      "x": 16,
+      "y": 76,
+      "width": 46,
+      "height": 61
+    },
+    {
+      "keys": ["man","left","frame2"],
+      "x": 79,
+      "y": 75,
+      "width": 46,
+      "height": 61
+    },
+    {
+      "keys": ["man","left","frame3"],
+      "x": 143,
+      "y": 76,
+      "width": 46,
+      "height": 61
+    },
+    {
+      "keys": ["man","left","frame4"],
+      "x": 207,
+      "y": 75,
+      "width": 46,
+      "height": 61
+    },
+
+    {
+      "keys": ["man","right","frame1"],
+      "x": 16,
+      "y": 140,
+      "width": 46,
+      "height": 61
+    },
+    {
+      "keys": ["man","right","frame2"],
+      "x": 80,
+      "y": 139,
+      "width": 46,
+      "height": 61
+    },
+    {
+      "keys": ["man","right","frame3"],
+      "x": 143,
+      "y": 142,
+      "width": 46,
+      "height": 61
+    },
+    {
+      "keys": ["man","right","frame4"],
+      "x": 208,
+      "y": 140,
+      "width": 46,
+      "height": 61
+    },
+
+    {
+      "keys": ["man","up","frame1"],
+      "x": 13,
+      "y": 205,
+      "width": 48,
+      "height": 59
+    },
+    {
+      "keys": ["man","up","frame2"],
+      "x": 78,
+      "y": 204,
+      "width": 48,
+      "height": 59
+    },
+    {
+      "keys": ["man","up","frame3"],
+      "x": 142,
+      "y": 206,
+      "width": 48,
+      "height": 59
+    },
+    {
+      "keys": ["man","up","frame4"],
+      "x": 205,
+      "y": 203,
+      "width": 48,
+      "height": 59
     }
   ]
 }

@@ -28,7 +28,7 @@ const mainScene = new Scene ({
 
         this.man.setFramesCollection (manAtlas.frames)
         this.man.setAnimationsCollection (manAtlas.actions)
-        this.man.startAnimation('moveDown')
+        this.man.startAnimation('moveDown') // moveLeft moveRight moveUp
 
         /*this.man.setFrameByKeys('man', 'down','frame1')
         this.man.width = this.man.frame.width
@@ -43,11 +43,6 @@ const mainScene = new Scene ({
 
     update (timestamp) {
         const { keyboard } = this.parent
-
-        /*if (Util.delay('manFrameUpdate', 150)) {
-            n = n % 4 + 1
-            this.man.setFrameByKeys('man', 'down','frame'+n)
-        }*/
 
         this.man.velocity.x = 0
         this.man.velocity.y = 0
