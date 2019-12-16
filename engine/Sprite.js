@@ -42,7 +42,7 @@
             if (!this.animations.hasOwnProperty(name)) {
                 return false
             }
-            const {duration, frames} = this.animations[name]
+            const {duration=Infinity, frames} = this.animations[name]
             this.animation = name
             this.frameDelay = duration / frames.length
             this.setFrameByKeys(...frames[0])

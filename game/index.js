@@ -28,17 +28,9 @@ const mainScene = new Scene ({
 
         this.man.setFramesCollection (manAtlas.frames)
         this.man.setAnimationsCollection (manAtlas.actions)
-        this.man.startAnimation('moveDown') // moveLeft moveRight moveUp
-
-        /*this.man.setFrameByKeys('man', 'down','frame1')
-        this.man.width = this.man.frame.width
-        this.man.height = this.man.frame.height*/
+        this.man.startAnimation('stayDown') // moveLeft moveRight moveUp
 
         this.add( this.man )
-    },
-
-    beforeDestroy () {
-        delete this.sprite
     },
 
     update (timestamp) {
@@ -46,14 +38,38 @@ const mainScene = new Scene ({
 
         this.man.velocity.x = 0
         this.man.velocity.y = 0
-        if (keyboard.arrowUp) {
-            this.man.velocity.y = -5
-        }
-        if (keyboard.arrowDown) {
-            this.man.velocity.y = 5
-        }
 
-    }
+        if (keyboard.arrowUp) {
+            this.man.velocity.y = -2
+            if (this.man.animation !== 'moveUp') {
+                this.man.startAnimation('moveUp')
+            }
+        }
+        else if (keyboard.arrowDown) {
+            this.man.velocity.y = 2
+            if (this.man.animation !== 'moveDown') {
+                this.man.startAnimation('moveDown')
+            }
+        }
+        else if (keyboard.arrowLeft) {
+            this.man.velocity.x = -2
+            if (this.man.animation !== 'moveLeft') {
+                this.man.startAnimation('moveLeft')
+            }
+        }
+        else if (keyboard.arrowRight) {
+            this.man.velocity.x = 2
+            if (this.man.animation !== 'moveRight') {
+                this.man.startAnimation('moveRight')
+            }
+        }
+        else if (this.man.animation === 'moveDown') {
+            this.man.startAnimation('stayDown')
+        }
+    },
+    beforeDestroy () {
+        delete this.sprite
+    },
 })
 
 const game = new Game ({
