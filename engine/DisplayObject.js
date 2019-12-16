@@ -1,7 +1,8 @@
 ;(function () {
     'use strict'
-    class DisplayObject {
+    class DisplayObject extends GameEngine.EventEmitter {
         constructor (args={}) {
+            super()
             this.uid = GameEngine.Util.generateUid()
             this.x = args.x || 0
             this.y = args.y || 0
