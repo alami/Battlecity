@@ -2,6 +2,7 @@
     'use strict'
 
     const delayCollection = {}
+    const uids = []
 
     const Util = {}
 
@@ -17,6 +18,23 @@
         return true
     }
 
+    Util.generateUid = function generateUid (size = 20) {
+        let uid = getRandomString()
+        while (uids.includes(uid)) {
+            uid = getRandomString()
+        }
+    }
     window.GameEngine = window.GameEngine || {}
     window.GameEngine.Util = Util
+
+    const alaphabet = 'qwerrtyuasdfggjjzxcvbnm,1234256789'
+    function getRandomLetter() {
+        return alaphabet[Math.floor(Math.random()*alaphabet.length)]
+    }
+    function getRandomString(size=10) {
+        let str = ''
+        while (str.length < size) {
+            str += getRandomLetter()
+        }
+    }
 })();

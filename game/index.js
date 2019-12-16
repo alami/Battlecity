@@ -26,8 +26,8 @@ const mainScene = new Scene ({
             }
         })
 
-        this.setFramesCollection (manAtlas.frames)
-        this.setAnimationsCollection (manAtlas.actions)
+        this.man.setFramesCollection (manAtlas.frames)
+        this.man.setAnimationsCollection (manAtlas.actions)
 
 
             this.man.setFrameByKeys('man', 'down','frame1')

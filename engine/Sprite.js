@@ -9,10 +9,16 @@
 
             this.texture = texture
 
-            this.frames = args.frames || []
+            this.frames = [] //args.frames ||
+            this.frameNumber = 0
+            this.frameDelay = 0
+
+            this.animations = []
+            this.animation = ''
 
             this.velocity = {
-                x:velocity.x || 0, y:velocity.y || 0
+                x:velocity.x || 0,
+                y:velocity.y || 0
             }
 
             this.frame = {
@@ -26,6 +32,22 @@
             this.height = args.height || this.frame.height
 
         }
+        setFramesCollection (framesCollection) {
+            this.frames = framesCollection
+        }
+        setAnimationsCollection (animationsCollection) {
+            this.animations = animationsCollection
+        }
+        startAnimation (name) {
+            if (this.animations.hasOwnProperty(name)) {
+                return false
+            }
+            const { duration, frames} = this.animations[name]
+            this.animation = name
+            this.frameDelay = duration / frames.length
+            this.setFrameByKeys(frames[0])
+        }
+
         setFrameByKeys (...keys) {
             const frame = this.getFrameByKeys (...keys)
             if (!frame) {
