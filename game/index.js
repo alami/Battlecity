@@ -12,7 +12,7 @@ const mainScene = new Scene ({
     init () {
         const manTexture = this.parent.loader.getImage('man')
         const manAtlas = this.parent.loader.getJson('manAtlas')
-        console.log(manAtlas)
+        //console.log(manAtlas)
 
         this.man = new Body(manTexture, {
             scale: 1,
@@ -28,7 +28,7 @@ const mainScene = new Scene ({
 
         this.man.setFramesCollection (manAtlas.frames)
         this.man.setAnimationsCollection (manAtlas.actions)
-
+        this.man.startAnimation('moveDown')
 
         /*this.man.setFrameByKeys('man', 'down','frame1')
         this.man.width = this.man.frame.width

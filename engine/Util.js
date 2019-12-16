@@ -23,6 +23,7 @@
         while (uids.includes(uid)) {
             uid = getRandomString()
         }
+        return uid
     }
     window.GameEngine = window.GameEngine || {}
     window.GameEngine.Util = Util
@@ -36,5 +37,6 @@
         while (str.length < size) {
             str += getRandomLetter()
         }
+        return str
     }
 })();

@@ -1,6 +1,5 @@
 {
-  "actions": [
-    {
+  "actions": {
       "moveDown": {
         "duration": 500,
         "frames": [
@@ -10,8 +9,7 @@
           ["man","down","frame4"]
         ]
       }
-    }
-  ],
+    },
   "frames": [
     {
       "keys": ["man","down","frame1"],
