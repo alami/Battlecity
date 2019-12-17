@@ -25,6 +25,9 @@ const mainScene = new Scene ({
                 x:0,y:0.5,width:1, height:0.5
             }
         })
+        this.man.on('frameChange', man => {
+            console.log('frameChange')
+        })
 
         this.man.setFramesCollection (manAtlas.frames)
         this.man.setAnimationsCollection (manAtlas.actions)

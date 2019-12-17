@@ -84,6 +84,7 @@
                 const { frames} = this.animations[this.animation]
                 this.frameNumber = (this.frameNumber + 1) % frames.length
                 this.setFrameByKeys(...frames[this.frameNumber])
+                this.emit('frameChange', this)
             }
             this.x += this.velocity.x
             this.y += this.velocity.y
