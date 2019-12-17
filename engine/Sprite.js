@@ -105,8 +105,8 @@
                     this.frame.height,
                     this.absoluteX - this.x,
                     this.absoluteY - this.y,
-                    this.width,
-                    this.height
+                    this.width * this.scaleX,
+                    this.height* this.scaleY
                 )
                 context.beginPath()
                 context.fillStyle = "red"

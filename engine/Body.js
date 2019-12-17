@@ -14,6 +14,31 @@
             this.body.width = body.width || 1
             this.body.height = body.height || 1
         }
+        get bodyRect () {
+            return {
+                x: this.absoluteX + this.width * this.scaleX * this.body.x,
+                y: this.absoluteY + this.height * this.scaleY * this.body.y,
+                width:  this.width * this.scaleX * this.body.width,
+                height: this.height * this.scaleY * this.body.height,
+            }
+        }
+        get tops () {
+            const {x,y,width,height} = this.bodyRect
+            return [
+                [x,y],
+                [x+width,y],
+                [x,y+height],
+                [x+width,y+height],
+            ]
+        }
+        isInside (x,y) {
+            const bodyRect = this.bodyRect
+            if (!this.visible) {
+                return  bodyRect.x < x && bodyRect.x + bodyRect.width
+                &&  bodyRect.y < x && bodyRect.y + bodyRect.height
+            }
+        }
+
         draw (canvas, context ) {
             // super.draw (canvas, context )
             // if (this.debug) {}
@@ -33,21 +58,21 @@
                 this.frame.height,
                 this.absoluteX - this.x,
                 this.absoluteY - this.y,
-                this.width,
-                this.height
+                this.width * this.scaleX,
+                this.height * this.scaleY
             )
-            //console.log('dbg: '+this.debug)
             if (this.debug) {
+                const {x, y, width, height} = this.bodyRect
+
                 context.fillStyle = 'rgba(255,0,0,0.3)'
                 context.beginPath()
-                context.rect(
-                    this.absoluteX -this.x + this.body.x*this.width,
-                    this.absoluteY -this.y + this.body.y*this.height,
-                    this.width * this.body.width,
-                    this.height* this.body.height
-                )
+                context.rect(x - this.x, y  - this.y, width, height)
                 context.fill()
 
+                context.fillStyle = 'red' //  ankor
+                context.beginPath()
+                context.arc(0,0,4,0,Math.PI*2)
+                context.fill()
             }
             context.restore()
 

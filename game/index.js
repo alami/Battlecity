@@ -78,6 +78,6 @@ const game = new Game ({
     el: document.body,
     width: 500,
     height: 500,
-    background: 'white',
+    background: 'green',
     scenes: [mainScene]
 })
