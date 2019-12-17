@@ -80,7 +80,7 @@
 
         tick(timestamp) {
             //console.log(timestamp)
-            if (this.animation && Util.delay(this.animation + this.uid, this.frameDelay)) {
+            if (this.animation && GameEngine.Util.delay(this.animation + this.uid, this.frameDelay)) {
                 const { frames} = this.animations[this.animation]
                 this.frameNumber = (this.frameNumber + 1) % frames.length
                 this.setFrameByKeys(...frames[this.frameNumber])

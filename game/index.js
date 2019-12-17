@@ -1,4 +1,4 @@
-const { Game, Scene, Body, Container, Util } = GameEngine
+const { Game, Scene, Body, ArcadePhysics } = GameEngine
 
 let n = 1
 
@@ -12,7 +12,8 @@ const mainScene = new Scene ({
     init () {
         const manTexture = this.parent.loader.getImage('man')
         const manAtlas = this.parent.loader.getJson('manAtlas')
-        //console.log(manAtlas)
+
+        this.arcadePhysics = new ArcadePhysics
 
         this.man = new Body(manTexture, {
             scale: 1,
@@ -25,9 +26,7 @@ const mainScene = new Scene ({
                 x:0,y:0.5,width:1, height:0.5
             }
         })
-        this.man.on('frameChange', man => {
-            console.log('frameChange')
-        })
+
 
         this.man.setFramesCollection (manAtlas.frames)
         this.man.setAnimationsCollection (manAtlas.actions)
