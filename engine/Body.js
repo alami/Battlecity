@@ -32,11 +32,7 @@
             ]
         }
         isInside (x,y) {
-            const bodyRect = this.bodyRect
-            if (!this.visible) {
-                return  bodyRect.x < x && bodyRect.x + bodyRect.width
-                &&  bodyRect.y < x && bodyRect.y + bodyRect.height
-            }
+            return GameEngine.Util.isInside ({x,y}, this.bodyRect)
         }
 
         draw (canvas, context ) {

@@ -25,10 +25,17 @@
         }
         return uid
     }
+
+    Util.isInside = function isInside (point, rect) {
+        return rect.x < point.x && rect.x < point.x + rect.width
+            && rect.y < point.y && rect.y < point.y + rect.height
+
+    }
+
     window.GameEngine = window.GameEngine || {}
     window.GameEngine.Util = Util
 
-    const alaphabet = 'qwerrtyuasdfggjjzxcvbnm,1234256789'
+    const alaphabet = 'qwerrtyuasgdfvzbxncmjiuk1239875039487'
     function getRandomLetter() {
         return alaphabet[Math.floor(Math.random()*alaphabet.length)]
     }

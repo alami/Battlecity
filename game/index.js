@@ -23,9 +23,7 @@ const mainScene = new Scene ({
             x: this.parent.renderer.canvas.width / 2 + 100,
             y: this.parent.renderer.canvas.height / 2,
         })
- console.log(this.man1)
- console.log(this.man2)
-        this.add( this.man1) //, this.man2
+        this.add( this.man1, this.man2)
         this.arcadePhysics.add( this.man1, this.man2 )
     },
 
