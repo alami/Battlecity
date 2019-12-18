@@ -18,8 +18,8 @@
         processing () {
             const objects = Array.from(this.objects)
             for (let i = 0; i < objects.length-1; i++) {
+                const a=objects[i]
                 for (let j = i+1; j < objects.length; j++) {
-                    const a=objects[i]
                     const b=objects[j]
                 }
             }

@@ -101,7 +101,7 @@
                     this.texture,
                     this.frame.x,
                     this.frame.y ,
-                    this.frame.height,
+                    this.frame.width,
                     this.frame.height,
                     this.absoluteX - this.x,
                     this.absoluteY - this.y,

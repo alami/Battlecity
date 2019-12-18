@@ -10,74 +10,71 @@ const mainScene = new Scene ({
         loader.addJson('manAtlas', 'static/manAtlas.json')
     },
     init () {
-        const manTexture = this.parent.loader.getImage('man')
-        const manAtlas = this.parent.loader.getJson('manAtlas')
+        Man.texture = this.parent.loader.getImage('man')
+        Man.atlas = this.parent.loader.getJson('manAtlas')
 
         this.arcadePhysics = new ArcadePhysics
 
-        this.man = new Body(manTexture, {
-            scale: 1,
-            anchorX: 0.5,
-            anchorY: 0.5,
-            x: this.parent.renderer.canvas.width / 2,
-            y: this.parent.renderer.canvas.height /2,
-            debug: true,
-            body: {
-                x:0,y:0.5,width:1, height:0.5
-            }
+        this.man1 = new Man({
+            x: this.parent.renderer.canvas.width / 2 - 100,
+            y: this.parent.renderer.canvas.height / 2,
         })
-
-
-        this.man.setFramesCollection (manAtlas.frames)
-        this.man.setAnimationsCollection (manAtlas.actions)
-        this.man.startAnimation('stayDown') // moveLeft moveRight moveUp
-
-        this.add( this.man )
+        this.man2 = new Man({
+            x: this.parent.renderer.canvas.width / 2 + 100,
+            y: this.parent.renderer.canvas.height / 2,
+        })
+ console.log(this.man1)
+ console.log(this.man2)
+        this.add( this.man1) //, this.man2
+        this.arcadePhysics.add( this.man1, this.man2 )
     },
 
     update (timestamp) {
         const { keyboard } = this.parent
 
-        this.man.velocity.x = 0
-        this.man.velocity.y = 0
+        this.man1.velocity.x = 0
+        this.man1.velocity.y = 0
+        this.man2.velocity.x = 0
+        this.man2.velocity.y = 0
 
         if (keyboard.arrowUp) {
-            this.man.velocity.y = -2
-            if (this.man.animation !== 'moveUp') {
-                this.man.startAnimation('moveUp')
+            this.man1.velocity.y = -2
+            if (this.man1.animation !== 'moveUp') {
+                this.man1.startAnimation('moveUp')
             }
         }
         else if (keyboard.arrowDown) {
-            this.man.velocity.y = 2
-            if (this.man.animation !== 'moveDown') {
-                this.man.startAnimation('moveDown')
+            this.man1.velocity.y = 2
+            if (this.man1.animation !== 'moveDown') {
+                this.man1.startAnimation('moveDown')
             }
         }
         else if (keyboard.arrowLeft) {
-            this.man.velocity.x = -2
-            if (this.man.animation !== 'moveLeft') {
-                this.man.startAnimation('moveLeft')
+            this.man1.velocity.x = -2
+            if (this.man1.animation !== 'moveLeft') {
+                this.man1.startAnimation('moveLeft')
             }
         }
         else if (keyboard.arrowRight) {
-            this.man.velocity.x = 2
-            if (this.man.animation !== 'moveRight') {
-                this.man.startAnimation('moveRight')
+            this.man1.velocity.x = 2
+            if (this.man1.animation !== 'moveRight') {
+                this.man1.startAnimation('moveRight')
             }
         }
-        else if (this.man.animation === 'moveDown') {
-            this.man.startAnimation('stayDown')
+        else if (this.man1.animation === 'moveDown') {
+            this.man1.startAnimation('stayDown')
         }
+        this.arcadePhysics.processing()
     },
-    beforeDestroy () {
+    /*beforeDestroy () {
         delete this.sprite
-    },
+    },*/
 })
 
 const game = new Game ({
     el: document.body,
     width: 500,
     height: 500,
-    background: 'green',
+    background: 'grey',
     scenes: [mainScene]
 })
