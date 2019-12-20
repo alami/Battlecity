@@ -8,6 +8,7 @@
             const body = args.body || {}
 
             this.debug = args.debug || false
+
             this.body = {}
             this.body.x = body.x || 0
             this.body.y = body.y || 0
@@ -24,28 +25,28 @@
         }
         get tops () {
             const {x,y,width,height} = this.bodyRect
+
             return [
                 [x,y],
-                [x+width,y],
-                [x,y+height],
-                [x+width,y+height],
+                [x+width, y],
+                [x, y+height],
+                [x+width, y+height],
             ]
         }
         isInside (x,y) {
-            return GameEngine.Util.isInside ({x,y}, this.bodyRect)
+            return GameEngine.Util.isInside ({x, y}, this.bodyRect)
         }
 
         draw (canvas, context ) {
-            // super.draw (canvas, context )
-            // if (this.debug) {}
             if (!this.visible) {
                 return
             }
             context.save()
-            context.translate(this.x,this.y)
+            context.translate(this.x, this.y)
             context.rotate(-this.rotation)
-            context.save()
-            context.scale(this.scaleX,this.scaleY)
+
+            // context.scale(this.scaleX,this.scaleY)
+
             context.drawImage(
                 this.texture,
                 this.frame.x,
@@ -60,18 +61,17 @@
             if (this.debug) {
                 const {x, y, width, height} = this.bodyRect
 
-                context.fillStyle = 'rgba(255,0,0,0.3)'
+                context.fillStyle = 'rgba(255,0,0,0.2)'
                 context.beginPath()
                 context.rect(x - this.x, y  - this.y, width, height)
                 context.fill()
 
-                context.fillStyle = 'red' //  ankor
+                context.fillStyle = 'rgb(0, 255, 0)' //  ankor
                 context.beginPath()
-                context.arc(0,0,4,0,Math.PI*2)
+                context.arc(0,0,3,0,Math.PI*2)
                 context.fill()
             }
             context.restore()
-
         }
     }
 
