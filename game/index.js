@@ -1,4 +1,6 @@
-const { Game, Scene, Body, ArcadePhysics } = GameEngine
+const DEBUG_MODE = true
+
+const { Game, Scene, Util, ArcadePhysics } = GameEngine
 
 let n = 1
 
@@ -13,10 +15,13 @@ const mainScene = new Scene ({
         Tank.texture = this.parent.loader.getImage('spriteSheet')
         Tank.atlas = this.parent.loader.getJson('atlas')
 
+        Bullet.texture = this.parent.loader.getImage('spriteSheet')
+        Bullet.atlas = this.parent.loader.getJson('atlas')
+
         this.arcadePhysics = new ArcadePhysics
 
         this.tank =  new Tank({
-            debug: true,
+            debug: DEBUG_MODE,
             x: this.parent.renderer.canvas.width / 2 - 100,
             y: this.parent.renderer.canvas.height / 2,
         })
@@ -25,7 +30,26 @@ const mainScene = new Scene ({
         this.arcadePhysics.add( this.tank )
     },
     update () {
-        this.tank.movementUpdate(this.parent.keyboard)
+        const {keyboard} = this.parent
+        this.tank.movementUpdate(keyboard)
+
+        if (keyboard.space && Util.delay('tank'+this.tank.uid, Tank.BULLET_TIMEOUT)) {
+            const bullet = new Bullet({ //выстрел
+                debug: DEBUG_MODE,
+                x: this.tank.x,
+                y: this.tank.y
+            })
+
+            this.tank.bullets.push(bullet)
+            bullet.tank = this.tank
+
+            if (this.tank.animation === "moveUp") {
+                bullet.velocity.y -= bullet.NORMAL_SPEED
+                bullet.setFrameByKeys('bullet', 'up')
+            }
+            this.add(bullet)
+            this.arcadePhysics.add(bullet)
+        }
 
         this.arcadePhysics.processing()
     },

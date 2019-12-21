@@ -1,4 +1,4 @@
-class Tank extends GameEngine.Body{
+class Tank extends GameEngine.Body {
     constructor(originalArgs = {}) {
         const args = Object.assign({
             scale: 4,
@@ -8,15 +8,21 @@ class Tank extends GameEngine.Body{
 
         super(Tank.texture, args);
 
-        this.setFramesCollection (Tank.atlas.frames)
-        this.setAnimationsCollection (Tank.atlas.actions)
+        this.bullets = []
+
+        this.setFramesCollection(Tank.atlas.frames)
+        this.setAnimationsCollection(Tank.atlas.actions)
         this.startAnimation('moveUp') // moveLeft moveRight moveUp
 
         this.on('collision', (a, b) => {
+            if (b instanceof Bullet && this.bullets.includes(b)) {
+                return
+            }
             a.velocity.x = 0
             a.velocity.y = 0
         })
     }
+
     movementUpdate(keyboard) {
         this.velocity.x = 0
         this.velocity.y = 0
@@ -35,7 +41,10 @@ class Tank extends GameEngine.Body{
         }
     }
 }
+
 Tank.texture = null
 Tank.atlas = null
 
 Tank.NORMAL_SPEED = 2
+Tank.BULLET_TIMEOUT =1000
+Tank.BULLET_TIMEOUT =1000

@@ -1,41 +1,38 @@
-class Bullet extends GameEngine.Bullet{
+class Bullet extends GameEngine.Body{
     constructor(originalArgs = {}) {
         const args = Object.assign({
-            scale: 4,
             anchorX: 0.5,
             anchorY: 0.5,
         }, originalArgs)
 
-        super(Tank.texture, args);
+        super(Bullet.texture, args);
 
-        this.setFramesCollection (Tank.atlas.frames)
-        this.setAnimationsCollection (Tank.atlas.actions)
-        this.startAnimation('moveUp') // moveLeft moveRight moveUp
+        this.tank = null
+
+        this.setFramesCollection (Bullet.atlas.frames)
+        this.setAnimationsCollection (Bullet.atlas.actions)
+        this.startAnimation('moveUp')
 
         this.on('collision', (a, b) => {
+            if (b === this.tank) {
+                return
+            }
             a.velocity.x = 0
             a.velocity.y = 0
         })
     }
-    movementUpdate(keyboard) {
-        this.velocity.x = 0
-        this.velocity.y = 0
+    destroy () {
+        Util.removeElements(this.tank.bullets, this)
 
-        if (keyboard.arrowLeft) {
-            this.velocity.x = -Tank.NORMAL_SPEED
-        }
-        else if (keyboard.arrowRight) {
-            this.velocity.x = Tank.NORMAL_SPEED
-        }
-        else if (keyboard.arrowDown) {
-            this.velocity.y = Tank.NORMAL_SPEED
-        }
-        else if (keyboard.arrowUp) {
-            this.velocity.y = -Tank.NORMAL_SPEED
-        }
+        delete this.tank
+
+        const  scene = Util.getScene(this)
+        scene.remove(bullet)
+        scene.arcadePhysics.remove(bullet)
     }
-}
-Tank.texture = null
-Tank.atlas = null
 
-Tank.NORMAL_SPEED = 2
+}
+Bullet.texture = null
+Bullet.atlas = null
+
+Bullet.NORMAL_SPEED = 5

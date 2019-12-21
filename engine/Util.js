@@ -32,7 +32,23 @@
 
     }
 
-    window.GameEngine = window.GameEngine || {}
+    Util.removeElements = function removeElements (array, ...elements) {
+        for (const element of array) {
+            if (array.includes(element)) {
+                const index = array.indexOf(element)
+                array.splice(index, 1)
+            }
+        }
+    }
+    Util.getScene = function getScene (obj) {
+        if (!obj || obj instanceof GameEngine.Scene) {
+            return obj
+        }
+        return Util.getScene(obj.parent)
+    }
+
+
+        window.GameEngine = window.GameEngine || {}
     window.GameEngine.Util = Util
 
     const alaphabet = 'qwerrtyuasgdfvzbxncmjiuk1239875039487'
