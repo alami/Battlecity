@@ -20,30 +20,35 @@ const mainScene = new Scene ({
 
         this.arcadePhysics = new ArcadePhysics
 
-        this.tank =  new Tank({
+        this.tank1 =  new Tank({
             debug: DEBUG_MODE,
             x: this.parent.renderer.canvas.width / 2 - 100,
             y: this.parent.renderer.canvas.height / 2,
         })
+        this.tank2 =  new Tank({
+            debug: DEBUG_MODE,
+            x: this.parent.renderer.canvas.width / 2 + 100,
+            y: this.parent.renderer.canvas.height / 2,
+        })
 
-        this.add( this.tank)
-        this.arcadePhysics.add( this.tank )
+        this.add( this.tank1, this.tank2)
+        this.arcadePhysics.add( this.tank1,this.tank2 )
     },
     update () {
         const {keyboard} = this.parent
-        this.tank.movementUpdate(keyboard)
+        this.tank1.movementUpdate(keyboard)
 
-        if (keyboard.space && Util.delay('tank'+this.tank.uid, Tank.BULLET_TIMEOUT)) {
+        if (keyboard.space && Util.delay('tank'+this.tank1.uid, Tank.BULLET_TIMEOUT)) {
             const bullet = new Bullet({ //выстрел
                 debug: DEBUG_MODE,
-                x: this.tank.x,
-                y: this.tank.y
+                x: this.tank1.x,
+                y: this.tank1.y
             })
 
-            this.tank.bullets.push(bullet)
-            bullet.tank = this.tank
+            this.tank1.bullets.push(bullet)
+            bullet.tank = this.tank1
 
-            if (this.tank.animation === "moveUp") {
+            if (this.tank1.animation === "moveUp") {
                 bullet.velocity.y -= bullet.NORMAL_SPEED
                 bullet.setFrameByKeys('bullet', 'up')
             }
