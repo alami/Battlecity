@@ -32,7 +32,7 @@ const mainScene = new Scene ({
         })
 
         this.add( this.tank1, this.tank2)
-        this.arcadePhysics.add( this.tank1,this.tank2 )
+        // this.arcadePhysics.add( this.tank1,this.tank2 )
     },
     update () {
         const {keyboard} = this.parent
@@ -49,11 +49,11 @@ const mainScene = new Scene ({
             bullet.tank = this.tank1
 
             if (this.tank1.animation === "moveUp") {
-                bullet.velocity.y -= bullet.NORMAL_SPEED
+                bullet.velocity.y -= Bullet.NORMAL_SPEED
                 bullet.setFrameByKeys('bullet', 'up')
             }
             this.add(bullet)
-            this.arcadePhysics.add(bullet)
+            //this.arcadePhysics.add(bullet)
         }
 
         this.arcadePhysics.processing()

@@ -2,49 +2,60 @@
     'use strict'
 
     class ArcadePhysics {
-        constructor() {
+        constructor () {
             this.objects = new Set
         }
-        add(...objects) {
+
+        add (...objects) {
             for (const object of objects) {
                 this.objects.add(object)
             }
         }
-        remove(...objects) {
+
+        remove (...objects) {
             for (const object of objects) {
                 this.objects.delete(object)
             }
         }
+
         processing () {
             const objects = Array.from(this.objects)
-            for (let i = 0; i < objects.length-1; i++) {
-                const a=objects[i]
+
+            for (let i = 0; i < objects.length - 1; i++) {
+                const a = objects[i]
                 const bodyA = a.bodyRect
                 const topsA = a.tops
                 const vxA = a.velocity.x
                 const vyA = a.velocity.y
-                for (let j = i+1; j < objects.length; j++) {
-                    const b=objects[j]
+
+                for (let j = i + 1; j < objects.length; j++) {
+                    const b = objects[j]
+
+                    if (a.static && b.static) {
+                        continue
+                    }
+
                     const bodyB = b.bodyRect
                     const topsB = b.tops
                     const vxB = b.velocity.x
                     const vyB = b.velocity.y
 
-                    let  crossing = false
+                    let crossing = false
 
                     for (const topA of topsA) {
                         crossing = GameEngine.Util.isInside(
                             {
-                                x: topA[0] + vxA, //точка должна быть внутри
-                                y: topA[1] + vyA,
+                                x: topA[0] + vxA,
+                                y: topA[1] + vyA
                             },
                             {
-                                x: bodyB.x + vxB, //прямоугольника
+                                x: bodyB.x + vxB,
                                 y: bodyB.y + vyB,
                                 width: bodyB.width,
-                                height: bodyB.height,
+                                height: bodyB.height
                             }
                         )
+
                         if (crossing) {
                             break
                         }
@@ -52,27 +63,28 @@
 
                     if (crossing === false) {
                         for (const topB of topsB) {
-                            crossing = GameEngine.Util.isInside(
+                            crossing = Util.isInside(
                                 {
-                                    x: topB[0] + vxB, //точка должна быть внутри
-                                    y: topB[1] + vyB,
+                                    x: topB[0] + vxB,
+                                    y: topB[1] + vyB
                                 },
                                 {
-                                    x: bodyA.x + vxA, //прямоугольника
+                                    x: bodyA.x + vxA,
                                     y: bodyA.y + vyA,
                                     width: bodyA.width,
-                                    height: bodyA.height,
+                                    height: bodyA.height
                                 }
                             )
+
                             if (crossing) {
                                 break
                             }
                         }
                     }
+
                     if (crossing) {
-                        console.log(a,b)
-                        a.emit('collision', a , b)
-                        b.emit('collision', b , a)
+                        a.emit('collision', b, a)
+                        b.emit('collision', a, b)
                     }
                 }
             }

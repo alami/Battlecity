@@ -47,4 +47,3 @@ Tank.atlas = null
 
 Tank.NORMAL_SPEED = 2
 Tank.BULLET_TIMEOUT =1000
-Tank.BULLET_TIMEOUT =1000
