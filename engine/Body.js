@@ -9,6 +9,8 @@
 
             this.debug = args.debug || false
 
+            this.static = args.static || false
+
             this.body = {}
             this.body.x = body.x || 0
             this.body.y = body.y || 0

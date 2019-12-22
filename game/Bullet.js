@@ -8,17 +8,17 @@ class Bullet extends GameEngine.Body{
         super(Bullet.texture, args);
 
         this.tank = null
+        this.toDestroy = false
 
         this.setFramesCollection (Bullet.atlas.frames)
         this.setAnimationsCollection (Bullet.atlas.actions)
-        this.startAnimation('moveUp')
+        //this.startAnimation('moveUp')
 
         this.on('collision', (a, b) => {
             if (b === this.tank) {
                 return
             }
-            a.velocity.x = 0
-            a.velocity.y = 0
+            this.toDestroy = true
         })
     }
     destroy () {
@@ -27,8 +27,8 @@ class Bullet extends GameEngine.Body{
         delete this.tank
 
         const  scene = Util.getScene(this)
-        scene.remove(bullet)
-        scene.arcadePhysics.remove(bullet)
+        scene.remove(this)
+        scene.arcadePhysics.remove(this)
     }
 
 }

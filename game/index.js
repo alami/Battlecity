@@ -1,6 +1,6 @@
 const DEBUG_MODE = true
 
-const { Game, Scene, Util, ArcadePhysics } = GameEngine
+const { Game, Scene, Body, Util, ArcadePhysics } = GameEngine
 
 let n = 1
 
@@ -23,16 +23,32 @@ const mainScene = new Scene ({
         this.tank1 =  new Tank({
             debug: DEBUG_MODE,
             x: this.parent.renderer.canvas.width / 2,
-            y: this.parent.renderer.canvas.height / 2,
+            y: this.parent.renderer.canvas.height / 2 + 100,
         })
         this.tank2 =  new Tank({
             debug: DEBUG_MODE,
             x: this.parent.renderer.canvas.width / 2,
-            y: this.parent.renderer.canvas.height / 2 + 100,
+            y: this.parent.renderer.canvas.height / 2,
         })
 
         this.add( this.tank1, this.tank2)
-        // this.arcadePhysics.add( this.tank1,this.tank2 )
+        this.arcadePhysics.add( this.tank1,this.tank2 )
+
+        this.arcadePhysics.add( new  Body(null, {
+            static: true,
+            x: -10,
+            y: -10,
+            width: this.parent.renderer.canvas.width +20,
+            height: 10
+        }))
+        this.arcadePhysics.add( new  Body(null, {
+            static: true,
+            x: -10,
+            y: -10,
+            width: 10,
+            height: this.parent.renderer.canvas.height +20,
+
+        }))
     },
     update () {
         const {keyboard} = this.parent
@@ -53,11 +69,19 @@ const mainScene = new Scene ({
                 bullet.setFrameByKeys('bullet', 'up')
             }
             this.add(bullet)
-            //this.arcadePhysics.add(bullet)
+            this.arcadePhysics.add(bullet)
         }
 
         this.arcadePhysics.processing()
-    },
+        for (const tank of [this.tank1, this.tank2]) {
+            for (const bullet of tank.bullets) {
+                if (bullet.toDestroy) {
+                    bullet.destroy()
+                }
+            }
+
+        }
+    }
 
         /*init () {
             Man.texture = this.parent.loader.getImage('man')

@@ -27,8 +27,8 @@
     }
 
     Util.isInside = function isInside (point, rect) {
-        return rect.x < point.x && rect.x < point.x + rect.width
-            && rect.y < point.y && rect.y < point.y + rect.height
+        return rect.x < point.x && point.x < rect.x + rect.width
+            && rect.y < point.y && point.y < rect.y + rect.height
 
     }
 
@@ -48,7 +48,7 @@
     }
 
 
-        window.GameEngine = window.GameEngine || {}
+    window.GameEngine = window.GameEngine || {}
     window.GameEngine.Util = Util
 
     const alaphabet = 'qwerrtyuasgdfvzbxncmjiuk1239875039487'

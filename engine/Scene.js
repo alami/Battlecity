@@ -6,6 +6,7 @@
 
             this.autoStart = args.autoStart || false
             this.name = args.name || ''
+
             this.status = 'waiting'
             this.stage = this.displayObjects
             this.game = null
@@ -27,9 +28,9 @@
         init () {}
         update () {}
         beforeDestroy() {
-            for (const key of Object.keys(this)) {
+            /*for (const key of Object.keys(this)) {
                 delete this[key]
-            }
+            }*/
         }
     }
     window.GameEngine = window.GameEngine || {}
