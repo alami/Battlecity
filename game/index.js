@@ -22,13 +22,13 @@ const mainScene = new Scene ({
 
         this.tank1 =  new Tank({
             debug: DEBUG_MODE,
-            x: this.parent.renderer.canvas.width / 2 - 100,
+            x: this.parent.renderer.canvas.width / 2,
             y: this.parent.renderer.canvas.height / 2,
         })
         this.tank2 =  new Tank({
             debug: DEBUG_MODE,
-            x: this.parent.renderer.canvas.width / 2 + 100,
-            y: this.parent.renderer.canvas.height / 2,
+            x: this.parent.renderer.canvas.width / 2,
+            y: this.parent.renderer.canvas.height / 2 + 100,
         })
 
         this.add( this.tank1, this.tank2)
