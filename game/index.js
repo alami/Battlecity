@@ -1,12 +1,12 @@
 const DEBUG_MODE = true
 
-const { Game, Scene, Body, Util, ArcadePhysics } = GameEngine
+const { Game, Scene, Sprite, Body, Util, ArcadePhysics } = GameEngine
 
 let n = 1
 
 const mainScene = new Scene ({
     name: 'mainScene',
-    autoStart: true,
+    // autoStart: true,
     loading (loader) {
         loader.addImage('spriteSheet', 'static/Battle City Sprites.png')
         loader.addJson('atlas', 'static/atlas.json')
@@ -148,10 +148,43 @@ const mainScene = new Scene ({
     },*/
 })
 
+const intro = new Intro ({
+    autoStart: true,
+    name: 'introScene',
+    loading(loader) {
+        loader.addImage('intro','static/Intro.png')
+    },
+    init() {
+        const {loader} = this.parent
+        this.image = new Sprite (loader.getImage('intro'), {
+            x: 0,
+            y: this.parent.renderer.canvas.height,
+            width: this.parent.renderer.canvas.width,
+            height: this.parent.renderer.canvas.height,
+        })
+        this.add(this.image)
+
+        this.imageTweenStopper = Util.tween({
+            target: this.image,
+            duration: 1000,
+            processer (target, percent, context) {
+                if (percent === 0) {
+                  context.y = target.y
+                  }
+                //console.log(percent)
+                target.y = target.y*(1-percent)
+                }
+            })
+        },
+    update (timestamp) {
+
+    }
+})
+
 const game = new Game ({
     el: document.body,
     width: 500,
     height: 500,
     background: 'grey',
-    scenes: [mainScene]
+    scenes: [intro, mainScene]
 })
