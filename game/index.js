@@ -10,8 +10,13 @@ const mainScene = new Scene ({
     loading (loader) {
         loader.addImage('spriteSheet', 'static/Battle City Sprites.png')
         loader.addJson('atlas', 'static/atlas.json')
+        loader.addSound('start', 'static/sound/stage_start.ogg')
     },
     init () {
+        const startSound =  this.parent.loader.getSound('start')
+        //console.log(startSound === game.loader.resources.sounds.start)
+        //startSound.play()//.then().catch(error => {})
+
         Tank.texture = this.parent.loader.getImage('spriteSheet')
         Tank.atlas = this.parent.loader.getJson('atlas')
 
