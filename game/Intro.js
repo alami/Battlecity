@@ -8,18 +8,9 @@ class Intro extends GameEngine.Scene {
     loading(loader) {
         loader.addImage('intro','static/Intro.png')
         loader.addSound('intro', 'static/sound/stage_start.ogg')
-
-        loader.addImage('spriteSheet', 'static/Battle City Sprites.png')
-        loader.addJson('atlas', 'static/atlas.json')
     }
     init() {
         const {loader} = this.parent
-
-        Tank.texture = this.parent.loader.getImage('spriteSheet')
-        Tank.atlas = this.parent.loader.getJson('atlas')
-
-        Bullet.texture = this.parent.loader.getImage('spriteSheet')
-        Bullet.atlas = this.parent.loader.getJson('atlas')
 
         this.image = new Sprite (loader.getImage('intro'), {
             x: 0,
@@ -41,6 +32,9 @@ class Intro extends GameEngine.Scene {
                 target.y = target.y*(1-percent)
             }
         })
+
+        this.parent.startScene('party')
+        this.parent.finishScene(this)
     }
     update (timestamp) {
         const { keyboard } = this.parent
