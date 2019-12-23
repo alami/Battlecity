@@ -166,7 +166,7 @@ const intro = new Intro ({
 
         this.imageTweenStopper = Util.tween({
             target: this.image,
-            duration: 1000,
+            duration: 5000,
             processer (target, percent, context) {
                 if (percent === 0) {
                   context.y = target.y
@@ -177,7 +177,11 @@ const intro = new Intro ({
             })
         },
     update (timestamp) {
-
+        const { keyboard } = this.parent
+        if (keyboard.space && this.imageTweenStopper) {
+            this.imageTweenStopper()
+            this.image.y = 0
+        }
     }
 })
 
