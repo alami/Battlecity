@@ -153,6 +153,7 @@ const intro = new Intro ({
     name: 'introScene',
     loading(loader) {
         loader.addImage('intro','static/Intro.png')
+        loader.addSound('intro', 'static/sound/stage_start.ogg')
     },
     init() {
         const {loader} = this.parent
@@ -170,6 +171,7 @@ const intro = new Intro ({
             processer (target, percent, context) {
                 if (percent === 0) {
                   context.y = target.y
+                    loader.getSound('intro').play()
                   }
                 //console.log(percent)
                 target.y = target.y*(1-percent)
@@ -180,6 +182,7 @@ const intro = new Intro ({
         const { keyboard } = this.parent
         if (keyboard.space && this.imageTweenStopper) {
             this.imageTweenStopper()
+            delete this.imageTweenStopper
             this.image.y = 0
         }
     }
