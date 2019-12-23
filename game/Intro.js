@@ -8,9 +8,19 @@ class Intro extends GameEngine.Scene {
     loading(loader) {
         loader.addImage('intro','static/Intro.png')
         loader.addSound('intro', 'static/sound/stage_start.ogg')
+
+        loader.addImage('spriteSheet', 'static/Battle City Sprites.png')
+        loader.addJson('atlas', 'static/atlas.json')
     }
     init() {
         const {loader} = this.parent
+
+        Tank.texture = this.parent.loader.getImage('spriteSheet')
+        Tank.atlas = this.parent.loader.getJson('atlas')
+
+        Bullet.texture = this.parent.loader.getImage('spriteSheet')
+        Bullet.atlas = this.parent.loader.getJson('atlas')
+
         this.image = new Sprite (loader.getImage('intro'), {
             x: 0,
             y: this.parent.renderer.canvas.height,
@@ -21,7 +31,7 @@ class Intro extends GameEngine.Scene {
 
         this.imageTweenStopper = Util.tween({
             target: this.image,
-            duration: 5000,
+            duration: 500,
             processer (target, percent, context) {
                 if (percent === 0) {
                     context.y = target.y
@@ -35,7 +45,7 @@ class Intro extends GameEngine.Scene {
     update (timestamp) {
         const { keyboard } = this.parent
 
-        if (keyboard.space && Util.delay('introSpace', 1500)) {
+        if (keyboard.space && Util.delay('introSpace', 150)) {
             if (this.imageTweenStopper && this.image.y !== 0) {
                 this.imageTweenStopper()
                 delete this.imageTweenStopper

@@ -153,7 +153,7 @@ const game = new Game ({
     height: 500,
     background: 'grey',
     scenes: [
-        new Intro ({autoStart: false,}),
-        new Party ({autoStart: true,})
+        new Intro ({autoStart: true,}),
+        new Party ({autoStart: false,})
     ]
 })

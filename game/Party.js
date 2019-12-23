@@ -4,12 +4,13 @@ class Party extends GameEngine.Scene {
             name: 'party',
             ...args
         })
+
     }
     loading() {
         console.log('party fired')
     }
     init() {
-
+        this.mainTank = new Tank()
     }
     update () {
 
