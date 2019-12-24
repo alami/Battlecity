@@ -82,8 +82,8 @@
                     }
 
                     if (crossing) {
-                        a.emit('collision', a, b)
-                        b.emit('collision', b, a)
+                        a.emit('collision', b, a)
+                        b.emit('collision', a, b)
                     }
                 }
             }

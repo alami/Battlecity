@@ -9,6 +9,7 @@ class Party extends GameEngine.Scene {
     loading(loader) {
         loader.addImage('spriteSheet', 'static/Battle City Sprites.png')
         loader.addJson('atlas', 'static/atlas.json')
+        loader.addJson('map', 'static/map1.json')
 
         console.log('party fired')
     }
@@ -19,6 +20,8 @@ class Party extends GameEngine.Scene {
 
         Tank.texture = this.parent.loader.getImage('spriteSheet')
         Tank.atlas = this.parent.loader.getJson('atlas')
+
+        this.topology = new Topology(loader.getJson('map').map)
 
         Bullet.texture = this.parent.loader.getImage('spriteSheet')
         Bullet.atlas = this.parent.loader.getJson('atlas')
