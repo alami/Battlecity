@@ -23,6 +23,7 @@ class Party extends GameEngine.Scene {
 
         this.topology = new Topology(loader.getJson('map'))
         this.add(this.topology)
+        this.arcadePhysics.add(...this.topology.displayObjects)
 
         this.mainTank = new Tank()
         this.add(this.mainTank)
@@ -32,5 +33,7 @@ class Party extends GameEngine.Scene {
     update () {
         const {keyboard} = this.parent
         this.mainTank.movementUpdate(keyboard)
+
+        this.arcadePhysics.processing()
     }
 }

@@ -15,7 +15,7 @@ class Bullet extends GameEngine.Body{
         //this.startAnimation('moveUp')
 
         this.on('collision', a => {
-            if (b === this.tank) {
+            if (a === this.tank) {
                 return
             }
             this.toDestroy = true

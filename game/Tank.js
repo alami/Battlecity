@@ -16,18 +16,18 @@ class Tank extends GameEngine.Body {
         this.setAnimationsCollection(Tank.atlas.actions)
         this.startAnimation('moveUp') // moveLeft moveRight moveUp
 
-        this.on('collision', (a, b) => {
-            if (b instanceof Bullet) {
-                if (this.bullets.includes(b)) {
+        this.on('collision', a => {
+            if (a instanceof Bullet) {
+                if (this.bullets.includes(a)) {
                     return
                 }
                 else {
                     this.visible = false
-                    Util.getScene(this).arcadePhysics.remove(this)
+                    this.scene(this).arcadePhysics.remove(this)
                 }
             }
-            a.velocity.x = 0
-            a.velocity.y = 0
+            this.velocity.x = 0
+            this.velocity.y = 0
         })
     }
 

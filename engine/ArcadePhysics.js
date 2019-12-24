@@ -30,14 +30,15 @@
 
                 for (let j = i + 1; j < objects.length; j++) {
                     const b = objects[j]
-                    const bodyB = b.bodyRect
-                    const topsB = b.tops
-                    const vxB = b.velocity.x
-                    const vyB = b.velocity.y
 
                     if (a.static && b.static) {
                         continue
                     }
+
+                    const bodyB = b.bodyRect
+                    const topsB = b.tops
+                    const vxB = b.velocity.x
+                    const vyB = b.velocity.y
 
                     let crossing = false
 
