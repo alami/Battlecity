@@ -149,8 +149,8 @@ const mainScene = new Scene ({
 })
 const game = new Game ({
     el: document.body,
-    width: 500,
-    height: 500,
+    width: 650,
+    height: 650,
     background: 'grey',
     scenes: [
         new Intro ({autoStart: false,}),
