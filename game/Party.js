@@ -35,5 +35,11 @@ class Party extends GameEngine.Scene {
         this.mainTank.movementUpdate(keyboard)
 
         this.arcadePhysics.processing()
+
+        for (const object of this.arcadePhysics.objects) {
+            if (object instanceof Bullet && object.toDestroy) {
+                object.destroy()
+            }
+        }
     }
 }

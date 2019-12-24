@@ -1,7 +1,7 @@
 class Tank extends GameEngine.Body {
     constructor(originalArgs = {}) {
         const args = Object.assign({
-            scale: 4,
+            scale: 3.5,
             anchorX: 0.5,
             anchorY: 0.5,
             keysDeault: ['gray', 'type1'],
@@ -23,7 +23,7 @@ class Tank extends GameEngine.Body {
                 }
                 else {
                     this.visible = false
-                    this.scene(this).arcadePhysics.remove(this)
+                    this.scene.arcadePhysics.remove(this)
                 }
             }
             this.velocity.x = 0
