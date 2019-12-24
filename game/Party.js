@@ -15,6 +15,8 @@ class Party extends GameEngine.Scene {
     init() {
         const {loader} = this.parent
 
+        this.arcadePhysics = new GameEngine.ArcadePhysics
+
         Tank.texture = this.parent.loader.getImage('spriteSheet')
         Tank.atlas = this.parent.loader.getJson('atlas')
 
@@ -22,8 +24,12 @@ class Party extends GameEngine.Scene {
         Bullet.atlas = this.parent.loader.getJson('atlas')
 
         this.mainTank = new Tank()
+        this.add(this.mainTank)
+        this.arcadePhysics.add( this.mainTank )
+
     }
     update () {
-
+        const {keyboard} = this.parent
+        this.mainTank.movementUpdate(keyboard)
     }
 }

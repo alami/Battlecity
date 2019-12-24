@@ -8,6 +8,7 @@
             const velocity = args.velocity || {}
 
             this.texture = texture
+            this.keysDeault = args.keysDeault || []
 
             this.frames = [] //args.frames ||
             this.frameNumber = 0
@@ -15,6 +16,7 @@
 
             this.animations = []
             this.animation = ''
+            this.animationPaused = false
 
             this.velocity = {
                 x:velocity.x || 0,
@@ -47,9 +49,14 @@
             this.frameDelay = duration / keys.length
             this.setFrameByKeys(...keys[0])
         }
-
+        pauseAnimation () {
+            this.animationPaused = true
+        }
+        resumeAnimation () {
+            this.animationPaused = false
+        }
         setFrameByKeys (...keys) {
-            const frame = this.getFrameByKeys (...keys)
+            const frame = this.getFrameByKeys (...keys, ...this.keysDeault)
             if (!frame) {
                 return false
             }
@@ -79,7 +86,7 @@
         }
 
         tick(timestamp) {
-            if (this.animation && GameEngine.Util.delay(this.animation + this.uid, this.frameDelay)) {
+            if (!this.animationPaused && this.animation && GameEngine.Util.delay(this.animation + this.uid, this.frameDelay)) {
                 const { keys} = this.animations[this.animation]
 
                 this.frameNumber = (this.frameNumber + 1) % keys.length
