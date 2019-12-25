@@ -44,6 +44,18 @@
             this.y = value + this.anchorY * this.height  * this.scaleY
             return value
         }
+        get centerX () {
+            return this.absoluteX + this.width / 2 * this.scaleX
+        }
+        set centerX (value) {
+            return this.absoluteX = value - this.width / 2
+        }
+        get centerY () {
+            return this.absoluteY + this.height / 2 * this.scaleY
+        }
+        set centerY (value) {
+            return this.absoluteY = value - this.height / 2
+        }
         setScale (scale) {
             this.scaleX = scale
             this.scaleY = scale

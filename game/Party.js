@@ -40,7 +40,11 @@ class Party extends GameEngine.Scene {
         this.add(this.topology)
         this.arcadePhysics.add(...this.topology.displayObjects)
 
-        this.mainTank = new Tank()
+        const [ x, y ] = this.topology.getCoordinates('tank1',true)
+        this.mainTank = new Tank({
+            x: x * this.topology.size,
+            y: y * this.topology.size,
+        })
         this.add(this.mainTank)
         this.arcadePhysics.add( this.mainTank )
 
