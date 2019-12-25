@@ -79,9 +79,15 @@ class Party extends GameEngine.Scene {
     }
     update () {
         const {keyboard} = this.parent
-        const enemyTankForRedirect = []
 
         this.mainTank.movementUpdate(keyboard)
+
+        for (const enemyTank of this.enemies) {
+            if (enemyTank.nextDirect) {
+                enemyTank.setDirect(enemyTank.nextDirect)
+                enemyTank.nextDirect = null
+            }
+        }
 
         this.arcadePhysics.processing()
 
@@ -99,11 +105,11 @@ class Party extends GameEngine.Scene {
 
             enemyTank.setDirect('down')
 
-            /*enemyTank.on('collision', (a, b) => {
-                if (a.isBrick) {
-                    enemyTankForRedirect.add(b)
+            enemyTank.on('collision', (a, b) => {
+                if (b) { //танк существует
+                    b.nextDirect = Util.getRandomFrom ('up','left','right','down')
                 }
-            })*/
+            })
         }
         for (const enemyTank of this.enemies) {
             // enemyTank.setDirect(enemyTank.direct)
@@ -114,8 +120,5 @@ class Party extends GameEngine.Scene {
                 object.destroy()
             }
         }
-        /*for (const enemyTank of enemyTankForRedirect) {
-            enemyTank.direct = Util.getRandomFrom ('up','left','right','down')
-        }*/
     }
 }
