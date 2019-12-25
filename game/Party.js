@@ -21,7 +21,7 @@ class Party extends GameEngine.Scene {
 
         this.arcadePhysics = new GameEngine.ArcadePhysics
 
-        /*this.arcadePhysics.add( new  Body(null, {
+        this.arcadePhysics.add( new  Body(null, {
             static: true,
             x: -10,
             y: -10,
@@ -34,7 +34,21 @@ class Party extends GameEngine.Scene {
             y: -10,
             width: 10,
             height: height + 20,
-        }))*/
+        }))
+        this.arcadePhysics.add( new  Body(null, {
+            static: true,
+            x: height,
+            y: -10,
+            width: 10,
+            height: height + 20
+        }))
+        this.arcadePhysics.add( new  Body(null, {
+            static: true,
+            x: -10,
+            y: width,
+            width: width + 20,
+            height: 10,
+        }))
 
         this.topology = new Topology(loader.getJson('map'))
         this.add(this.topology)
