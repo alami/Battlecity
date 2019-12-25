@@ -5,6 +5,19 @@ class Topology extends GameEngine.Container {
         this.map = args.map || [[]]
         this.size = args.fieldSize || 20
 
+        const [ x, y ] = this.getCoordinates('eagle',true)
+        this.eagle = new Body(Topology.texture, {
+            x: x * this.size,
+            y: y * this.size,
+        })
+        this.eagle.setFramesCollection(Topology.atlas.frames)
+        this.eagle.setFrameByKeys('eagle')
+
+        this.eagle.width = this.size
+        this.eagle.height = this.size
+
+        this.add(this.eagle)
+
          for (const [x,y] of this.getCoordinates('brick') ) {
              for (let dx=0; dx<=1; dx++) {
                  for (let dy=0; dy<=1; dy++) {
