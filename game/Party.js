@@ -5,6 +5,8 @@ class Party extends GameEngine.Scene {
             ...args
         })
 
+        this.enemies = new Set
+
     }
     loading(loader) {
         loader.addImage('spriteSheet', 'static/Battle City Sprites.png')
@@ -17,10 +19,10 @@ class Party extends GameEngine.Scene {
     init() {
         const {loader, renderer: {canvas: {width, height} } } = this.parent
 
-        this.enemies = new Set
-
         Bullet.texture = Topology.texture = Tank.texture = loader.getImage('spriteSheet')
         Bullet.atlas   = Topology.atlas   = Tank.atlas   = loader.getJson('atlas')
+
+        this.partyData = loader.getJson('party')
 
         this.arcadePhysics = new GameEngine.ArcadePhysics
 
@@ -80,6 +82,19 @@ class Party extends GameEngine.Scene {
         this.mainTank.movementUpdate(keyboard)
 
         this.arcadePhysics.processing()
+
+        if (this.enemies.size < this.partyData.enemy.simultaneously
+            && Util.delay(this.uid + 'enemyGeneration', this.partyData.enemy.spawnDelay)
+        ) {
+            const [x,y] = this.topology.getCoordinates('enemy', true)
+            const enemyTank = new Tank({
+                x: x * this.topology.size,
+                y: y * this.topology.size,
+            })
+            this.enemies.add(enemyTank)
+            this.add(enemyTank)
+            this.arcadePhysics.add(enemyTank)
+        }
 
         for (const object of this.arcadePhysics.objects) {
             if (object instanceof Bullet && object.toDestroy) {
