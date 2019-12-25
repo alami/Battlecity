@@ -30,6 +30,9 @@
         get scene () {
             return Util.getScene(this)
         }
+        get game () {
+            return this.scene.parent
+        }
         get absoluteX () {
             return this.x - this.anchorX * this.width * this.scaleX
         }

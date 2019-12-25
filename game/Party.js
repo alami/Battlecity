@@ -48,6 +48,15 @@ class Party extends GameEngine.Scene {
         this.add(this.mainTank)
         this.arcadePhysics.add( this.mainTank )
 
+        if (this.topology.eagle) {
+            this.topology.eagle.on('collision', a => {
+                if (a instanceof Bullet) {
+                    this.game.startScene('resultScene')
+                    this.game.finishScene(this)
+                }
+            })
+        }
+
     }
     update () {
         const {keyboard} = this.parent
