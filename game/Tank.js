@@ -2,7 +2,7 @@ class Tank extends GameEngine.Body {
     constructor(originalArgs = {}) {
         const args = Object.assign({
             scale: 3.5,
-            keysDeault: ['gray', 'type1'],
+            keysDeault: ['yellow', 'type1'],
             debug: DEBUG_MODE,
         }, originalArgs)
 
@@ -14,20 +14,55 @@ class Tank extends GameEngine.Body {
         this.setAnimationsCollection(Tank.atlas.actions)
         this.startAnimation('moveUp') // moveLeft moveRight moveUp
 
-        this.on('collision', a => {
-            if (a instanceof Bullet) {
-                if (this.bullets.includes(a)) {
-                    return
-                }
-                else {
-                    this.scene.arcadePhysics.remove(this)
-                    this.scene.remove(this)
-                }
-            }
-            this.velocity.x = 0
-            this.velocity.y = 0
-        })
+        this.on('collision', (a, b) => this.collisionHandler(a, b))
     }
+
+    collisionHandler (a, b) {
+        if (a instanceof Bullet) {
+            if (this.bullets.includes(a)) {
+                return
+            }
+            else {
+                this.scene.arcadePhysics.remove(this)
+                this.scene.remove(this)
+            }
+        }
+        this.velocity.x = 0
+        this.velocity.y = 0
+    }
+
+    fire () {
+        const bullet = new Bullet({ //выстрел
+            debug: DEBUG_MODE,
+            x: this.centerX,
+            y: this.centerY
+        })
+        this.bullets.push(bullet)
+        bullet.tank = this
+
+        if (this.animation === "moveUp") {
+            bullet.velocity.y = -Bullet.NORMAL_SPEED
+            bullet.setFrameByKeys('bullet', 'up')
+        }
+        else if (this.animation === "moveLeft") {
+            bullet.velocity.x = -Bullet.NORMAL_SPEED
+            bullet.setFrameByKeys('bullet', 'left')
+        }
+        else if (this.animation === "moveRight") {
+            bullet.velocity.x = Bullet.NORMAL_SPEED
+            bullet.setFrameByKeys('bullet', 'right')
+        }
+        else if (this.animation === "moveDown") {
+            bullet.velocity.y = Bullet.NORMAL_SPEED
+            bullet.setFrameByKeys('bullet', 'down')
+        }
+
+        this.scene.add(bullet)
+        this.scene.arcadePhysics.add(bullet)
+
+        return bullet
+    }
+
     movementUpdate(keyboard) {
         const sd = x => this.setDirect(x, keyboard.space)
         if (keyboard.arrowUp) {
@@ -83,33 +118,7 @@ class Tank extends GameEngine.Body {
             this.pauseAnimation ()
         }
         if (fireCommand && Util.delay('tank'+this.uid, Tank.BULLET_TIMEOUT)) {
-            const bullet = new Bullet({ //выстрел
-                debug: DEBUG_MODE,
-                x: this.centerX,
-                y: this.centerY
-            })
-            this.bullets.push(bullet)
-            bullet.tank = this
-
-            if (this.animation === "moveUp") {
-                bullet.velocity.y = -Bullet.NORMAL_SPEED
-                bullet.setFrameByKeys('bullet', 'up')
-            }
-            else if (this.animation === "moveLeft") {
-                bullet.velocity.x = -Bullet.NORMAL_SPEED
-                bullet.setFrameByKeys('bullet', 'left')
-            }
-            else if (this.animation === "moveRight") {
-                bullet.velocity.x = Bullet.NORMAL_SPEED
-                bullet.setFrameByKeys('bullet', 'right')
-            }
-            else if (this.animation === "moveDown") {
-                bullet.velocity.y = Bullet.NORMAL_SPEED
-                bullet.setFrameByKeys('bullet', 'down')
-            }
-            const scene = Util.getScene(this)
-            scene.add(bullet)
-            scene.arcadePhysics.add(bullet)
+            this.fire()
         }
     }
 }
@@ -118,4 +127,4 @@ Tank.texture = null
 Tank.atlas = null
 
 Tank.NORMAL_SPEED = 2
-Tank.BULLET_TIMEOUT =250
+Tank.BULLET_TIMEOUT =1000

@@ -83,9 +83,17 @@ class Party extends GameEngine.Scene {
         this.mainTank.movementUpdate(keyboard)
 
         for (const enemyTank of this.enemies) {
+            if (!this.displayObjects.includes(enemyTank)) {
+                this.enemies.delete(enemyTank)
+                continue
+            }
             if (enemyTank.nextDirect) {
                 enemyTank.setDirect(enemyTank.nextDirect)
                 enemyTank.nextDirect = null
+            }
+            if (Util.delay(enemyTank.uid + ' fired', Tank.BULLET_TIMEOUT)) {
+                const bullet = enemyTank.fire()
+                bullet.isEnemy = true
             }
         }
 
@@ -95,21 +103,18 @@ class Party extends GameEngine.Scene {
             && Util.delay(this.uid + 'enemyGeneration', this.partyData.enemy.spawnDelay)
         ) {
             const [x,y] = this.topology.getCoordinates('enemy')
-            const enemyTank = new Tank({
+            const enemyTank = new EnemyTank({
                 x: x * this.topology.size,
                 y: y * this.topology.size,
             })
+
+            enemyTank.isEnemy = true
+
             this.enemies.add(enemyTank)
             this.add(enemyTank)
             this.arcadePhysics.add(enemyTank)
 
             enemyTank.setDirect('down')
-
-            enemyTank.on('collision', (a, b) => {
-                if (b) { //танк существует
-                    b.nextDirect = Util.getRandomFrom ('up','left','right','down')
-                }
-            })
         }
         for (const enemyTank of this.enemies) {
             // enemyTank.setDirect(enemyTank.direct)

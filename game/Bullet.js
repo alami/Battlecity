@@ -14,8 +14,11 @@ class Bullet extends GameEngine.Body{
         this.setAnimationsCollection (Bullet.atlas.actions)
         //this.startAnimation('moveUp')
 
-        this.on('collision', a => {
+        this.on('collision', (a, b) => {
             if (a === this.tank) {
+                return
+            }
+            if (a.isEnemy && blur.isEnemy) {
                 return
             }
             this.toDestroy = true
