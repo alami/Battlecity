@@ -28,8 +28,26 @@ class Tank extends GameEngine.Body {
             this.velocity.y = 0
         })
     }
-
     movementUpdate(keyboard) {
+        const sd = x => this.setDirect(x, keyboard.space)
+        if (keyboard.arrowUp) {
+            sd('up') //this.setDirect('up', keyboard.space)
+        }
+        else if (keyboard.arrowLeft) {
+            sd('left') //this.setDirect('left', keyboard.space)
+        }
+        else if (keyboard.arrowRight) {
+            sd('right') //this.setDirect('right', keyboard.space)
+        }
+        else if (keyboard.arrowDown) {
+            sd('down') //this.setDirect('down', keyboard.space)
+        }
+        else {
+            this.setDirect(null, keyboard.space)
+        }
+    }
+
+    setDirect (direct, fireCommand) {
         this.velocity.x = 0
         this.velocity.y = 0
 
@@ -37,25 +55,25 @@ class Tank extends GameEngine.Body {
             this.resumeAnimation ()
         }
 
-        if (keyboard.arrowLeft) {
+        if (direct === 'left') {
             this.velocity.x = -Tank.NORMAL_SPEED
             if (this.animation !== 'moveLeft') {
                 this.startAnimation('moveLeft')
             }
         }
-        else if (keyboard.arrowRight) {
+        else if (direct === 'right') {
             this.velocity.x = Tank.NORMAL_SPEED
             if (this.animation !== 'moveRight') {
                 this.startAnimation('moveRight')
             }
         }
-        else if (keyboard.arrowDown) {
+        else if (direct === 'down') {
             this.velocity.y = Tank.NORMAL_SPEED
             if (this.animation !== 'moveDown') {
                 this.startAnimation('moveDown')
             }
         }
-        else if (keyboard.arrowUp) {
+        else if (direct === 'up') {
             this.velocity.y = -Tank.NORMAL_SPEED
             if (this.animation !== 'moveUp') {
                 this.startAnimation('moveUp')
@@ -64,7 +82,7 @@ class Tank extends GameEngine.Body {
         else  {
             this.pauseAnimation ()
         }
-        if (keyboard.space && Util.delay('tank'+this.uid, Tank.BULLET_TIMEOUT)) {
+        if (fireCommand && Util.delay('tank'+this.uid, Tank.BULLET_TIMEOUT)) {
             const bullet = new Bullet({ //выстрел
                 debug: DEBUG_MODE,
                 x: this.centerX,

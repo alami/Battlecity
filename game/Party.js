@@ -10,11 +10,14 @@ class Party extends GameEngine.Scene {
         loader.addImage('spriteSheet', 'static/Battle City Sprites.png')
         loader.addJson('atlas', 'static/atlas.json')
         loader.addJson('map', 'static/map1.json')
+        loader.addJson('party', 'static/party.json')
 
         console.log('party fired')
     }
     init() {
         const {loader, renderer: {canvas: {width, height} } } = this.parent
+
+        this.enemies = new Set
 
         Bullet.texture = Topology.texture = Tank.texture = loader.getImage('spriteSheet')
         Bullet.atlas   = Topology.atlas   = Tank.atlas   = loader.getJson('atlas')
