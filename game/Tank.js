@@ -20,8 +20,8 @@ class Tank extends GameEngine.Body {
                     return
                 }
                 else {
-                    this.visible = false
                     this.scene.arcadePhysics.remove(this)
+                    this.scene.remove(this)
                 }
             }
             this.velocity.x = 0

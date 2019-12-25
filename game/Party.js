@@ -31,20 +31,20 @@ class Party extends GameEngine.Scene {
             x: -10,
             y: -10,
             width: width + 20,
-            height: 10
+            height: 9
         }))
         this.arcadePhysics.add( new  Body(null, {
             static: true,
             x: -10,
             y: -10,
-            width: 10,
+            width: 9,
             height: height + 20,
         }))
         this.arcadePhysics.add( new  Body(null, {
             static: true,
             x: height,
             y: -10,
-            width: 10,
+            width: 9,
             height: height + 20
         }))
         this.arcadePhysics.add( new  Body(null, {
@@ -52,7 +52,7 @@ class Party extends GameEngine.Scene {
             x: -10,
             y: width,
             width: width + 20,
-            height: 10,
+            height: 9,
         }))
 
         this.topology = new Topology(loader.getJson('map'))
@@ -79,6 +79,8 @@ class Party extends GameEngine.Scene {
     }
     update () {
         const {keyboard} = this.parent
+        const enemyTankForRedirect = []
+
         this.mainTank.movementUpdate(keyboard)
 
         this.arcadePhysics.processing()
@@ -86,7 +88,7 @@ class Party extends GameEngine.Scene {
         if (this.enemies.size < this.partyData.enemy.simultaneously
             && Util.delay(this.uid + 'enemyGeneration', this.partyData.enemy.spawnDelay)
         ) {
-            const [x,y] = this.topology.getCoordinates('enemy', true)
+            const [x,y] = this.topology.getCoordinates('enemy')
             const enemyTank = new Tank({
                 x: x * this.topology.size,
                 y: y * this.topology.size,
@@ -94,6 +96,17 @@ class Party extends GameEngine.Scene {
             this.enemies.add(enemyTank)
             this.add(enemyTank)
             this.arcadePhysics.add(enemyTank)
+
+            enemyTank.setDirect('down')
+
+            /*enemyTank.on('collision', (a, b) => {
+                if (a.isBrick) {
+                    enemyTankForRedirect.add(b)
+                }
+            })*/
+        }
+        for (const enemyTank of this.enemies) {
+            // enemyTank.setDirect(enemyTank.direct)
         }
 
         for (const object of this.arcadePhysics.objects) {
@@ -101,5 +114,8 @@ class Party extends GameEngine.Scene {
                 object.destroy()
             }
         }
+        /*for (const enemyTank of enemyTankForRedirect) {
+            enemyTank.direct = Util.getRandomFrom ('up','left','right','down')
+        }*/
     }
 }

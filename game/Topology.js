@@ -37,6 +37,8 @@ class Topology extends GameEngine.Container {
                      body.x = x * this.size + this.size / 2
                      body.y = y * this.size + this.size / 2
 
+                     body.isBrick = true
+
                      this.add(body)
 
                      body.on('collision', a => {

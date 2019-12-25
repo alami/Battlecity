@@ -27,8 +27,8 @@
     }
 
     Util.isInside = function isInside (point, rect) {
-        return rect.x < point.x && point.x < rect.x + rect.width
-            && rect.y < point.y && point.y < rect.y + rect.height
+        return rect.x <= point.x && point.x <= rect.x + rect.width
+            && rect.y <= point.y && point.y <= rect.y + rect.height
 
     }
 
@@ -85,6 +85,10 @@
             tweenFunction = null
             clearInterval(intervalFlag)
         }
+    }
+
+    Util.getRandomFrom = function getRandomFrom (...array) {
+        return array[Math.floor(Math.random() * array.length)]
     }
 
     window.GameEngine = window.GameEngine || {}
