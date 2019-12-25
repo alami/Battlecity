@@ -102,7 +102,7 @@ class Party extends GameEngine.Scene {
         if (this.enemies.size < this.partyData.enemy.simultaneously
             && Util.delay(this.uid + 'enemyGeneration', this.partyData.enemy.spawnDelay)
         ) {
-            const [x,y] = this.topology.getCoordinates('enemy')
+            const [x,y] = Util.getRandomFrom(...this.topology.getCoordinates('enemy'))
             const enemyTank = new EnemyTank({
                 x: x * this.topology.size,
                 y: y * this.topology.size,

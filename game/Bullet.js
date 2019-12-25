@@ -1,6 +1,7 @@
 class Bullet extends GameEngine.Body{
     constructor(originalArgs = {}) {
         const args = Object.assign({
+            scale: 2,
             anchorX: 0.5,
             anchorY: 0.5,
         }, originalArgs)
